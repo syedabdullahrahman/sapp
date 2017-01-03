@@ -1,11 +1,56 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/main">
-<head lang="pl">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport"
+		content="width=device-width, initialscale=1, maximum-scale=1.0, user-scalable=no" />
+	<link href="/webjars/materializecss/0.96.0/css/materialize.css"
+		type="text/css" rel="stylesheet" media="screen,projection" />
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+	<title>Hello Spring</title>
 </head>
 <body>
-	<div class="row" layout:fragment="content">		
-		<h2 th:text="#{welcome.title}">Hello on a page</h2>
-		<span th:text="#{welcome.message}">Welcome message</span>
+
+	<!-- NAVI -->
+	<div class="navbar-fixed">
+	<!-- Dropdown Structure -->
+	<ul id="dropdown-lang" class="dropdown-content">
+		<li><a href="?lang=pl" class="waves-effect waves-light"><span th:text="#{lang.polish}" class="light-blue-text text-darken-2">Polish</span></a></li>
+		<li><a href="?lang=en" class="waves-effect waves-light"><span th:text="#{lang.english}" class="light-blue-text text-darken-2">English</span></a></li>
+	</ul>
+	<!-- Dropdown Structure if is not authenticated -->
+	<ul id="dropdown-profile" class="dropdown-content">
+		<li><a href="#!" class="waves-effect waves-light"><span th:text="#{profile.login}" class="light-blue-text text-darken-2">Log in</span></a></li>
+		<li><a href="#!" class="waves-effect waves-light"><span th:text="#{profile.create}" class="light-blue-text text-darken-2">Create</span></a></li>
+	</ul>
+	
+	<nav class="light-blue darken-1">
+		<div class="nav-wrapper">
+			<ul class="left">
+			<li>
+				<a th:href="@{/}" class="waves-effect waves-light"><i class="mdi-action-home left"></i></a>
+			</li>
+			</ul>
+		</div>
+	</nav>
 	</div>
+	<!-- /NAVI -->
+	<div class="container">
+	<!--  CONTENT -->
+
+		<!-- available: $timestamp, $status, $error, $message  -->
+			<h2 th:text="|${status} - ${error}|">Hello on a page</h2>
+			<span th:text="${message}">Welcome message</span>
+			<br/><br/>
+			<img th:src="@{/images/sad.png}"></img>
+			
+			
+		
+
+	<!--  /CONTENT -->
+	</div>
+
 </body>
 </html>
