@@ -1,11 +1,24 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/main">
+<html xmlns:th="http://www.w3.org/1999/xhtml"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/main">
 <head lang="pl">
 </head>
 <body>
-	<div class="row" layout:fragment="content">		
-		<h2 th:text="#{welcome.title}">Hello on a page</h2>
-		<span th:text="#{welcome.message}">Welcome message</span>
+	<div layout:fragment="content">
+		<div class="row">
+			<div class="col s12">
+				<h2 th:text="#{welcome.title}">Hello on a page</h2>
+				<span th:text="#{welcome.message}" class="flow-text">Welcome message</span>
+				<ul class="flow-text">
+				<li><i class="mdi-image-navigate-next"></i>Spring Framework</li>
+				<li><i class="mdi-image-navigate-next"></i>Spring Boot</li>
+				<li><i class="mdi-image-navigate-next"></i>Spring MVC</li>
+				<li><i class="mdi-image-navigate-next"></i>Thymeleaf</li>
+				<li><i class="mdi-image-navigate-next"></i>Materialize</li>
+				</ul>
+			</div>
+		</div>
 	</div>
 </body>
 </html>
