@@ -1,4 +1,4 @@
-package sapp.date;
+package sapp.config.date;
 
 import javax.validation.Constraint;
 import javax.validation.ConstraintValidator;

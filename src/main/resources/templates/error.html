@@ -41,16 +41,48 @@
 	<!--  CONTENT -->
 
 		<!-- available: $timestamp, $status, $error, $message  -->
-			<h2 th:text="|${status} - ${error}|">Hello on a page</h2>
-			<span th:text="${message}">Welcome message</span>
+			<h2 th:text="|${status} - ${error}|">404 - Not Found</h2>			
+			<span class="url" th:text="${url}"></span><br/>
+			<span class="exception" th:text="${exception}">NullPointerException</span><br/>
+			<span class="message" th:text="${message}">There has been an internal error</span><br/>
 			<br/><br/>
 			<img th:src="@{/images/sad.png}"></img>
 			
 			
 		
-
-	<!--  /CONTENT -->
 	</div>
+	<!--  /CONTENT -->
+	<!--=================================== FOOTER ================================-->
+	<footer class="page-footer light-blue darken-1">
+		  <div class="container">
+            <div class="row">
+              <div class="col l6 s12">
+                <h5 class="white-text" th:text="#{footer.title}">Spring Boot</h5>
+                <p class="grey-text text-lighten-4" th:text="#{footer.message}"></p>
+              </div>
+              <div class="col l4 offset-l2 s12">
+                <h5 class="white-text" th:text="#{footer.links}">Links</h5>
+                <ul>
+                  <li><a class="grey-text text-lighten-3" href="https://spring.io/" target="_blank">Spring</a></li>
+                  <li><a class="grey-text text-lighten-3" href="http://heroku.com/" target="_blank">Heroku</a></li>
+                  <li><a class="grey-text text-lighten-3" href="http://github.com/" target="_blank">GitHub</a></li>
+                  <li><a class="grey-text text-lighten-3" href="http://materializecss.com/" target="_blank">Materialize</a></li>
+                  
+                </ul>
+                <h5 class="white-text" th:text="#{footer.contact}">Contact</h5>
+                <ul>
+                <li><a class="grey-text text-lighten-3" href="#!" th:text="#{footer.contact.form}">Spring</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="footer-copyright">
+            <div class="container">
+            © 2017 Krzysztof Michalak
+            </div>
+          </div>
+	</footer>
+	<!--=================================== /FOOTER ===============================-->
 
 </body>
 </html>

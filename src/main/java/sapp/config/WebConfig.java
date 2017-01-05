@@ -3,18 +3,16 @@ package sapp.config;
 
 import java.time.LocalDate;
 
-import javax.servlet.Filter;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
-import org.springframework.web.filter.ShallowEtagHeaderFilter;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
-import sapp.date.LocalDateFormatter;
+
+import sapp.config.date.LocalDateFormatter;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -53,5 +51,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	      .paths(path -> path.startsWith("/api/"))
 	        .build();
 	}
+	
 	
 }

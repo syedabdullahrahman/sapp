@@ -1,4 +1,4 @@
-package sapp.date;
+package sapp.config.date;
 
 import org.springframework.format.Formatter;
 
