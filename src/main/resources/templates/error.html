@@ -1,88 +1,31 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html xmlns:th="http://www.w3.org/1999/xhtml"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<meta name="viewport"
-		content="width=device-width, initialscale=1, maximum-scale=1.0, user-scalable=no" />
-	<link href="/webjars/materializecss/0.96.0/css/materialize.css"
-		type="text/css" rel="stylesheet" media="screen,projection" />
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-	<title>Hello Spring</title>
+	layout:decorator="layout/main_err">
+<head lang="pl">
 </head>
 <body>
-
-	<!-- NAVI -->
-	<div class="navbar-fixed">
-	<!-- Dropdown Structure -->
-	<ul id="dropdown-lang" class="dropdown-content">
-		<li><a href="?lang=pl" class="waves-effect waves-light"><span th:text="#{lang.polish}" class="light-blue-text text-darken-2">Polish</span></a></li>
-		<li><a href="?lang=en" class="waves-effect waves-light"><span th:text="#{lang.english}" class="light-blue-text text-darken-2">English</span></a></li>
-	</ul>
-	<!-- Dropdown Structure if is not authenticated -->
-	<ul id="dropdown-profile" class="dropdown-content">
-		<li><a href="#!" class="waves-effect waves-light"><span th:text="#{profile.login}" class="light-blue-text text-darken-2">Log in</span></a></li>
-		<li><a href="#!" class="waves-effect waves-light"><span th:text="#{profile.create}" class="light-blue-text text-darken-2">Create</span></a></li>
-	</ul>
-	
-	<nav class="light-blue darken-1">
-		<div class="nav-wrapper">
-			<ul class="left">
-			<li>
-				<a th:href="@{/}" class="waves-effect waves-light"><i class="mdi-action-home left"></i></a>
-			</li>
-			</ul>
-		</div>
-	</nav>
-	</div>
-	<!-- /NAVI -->
-	<div class="container">
-	<!--  CONTENT -->
-
+	<div layout:fragment="content">
 		<!-- available: $timestamp, $status, $error, $message  -->
+			<div th:if="${status}!=null">
 			<h2 th:text="|${status} - ${error}|">404 - Not Found</h2>			
-			<span class="url" th:text="${url}"></span><br/>
-			<span class="exception" th:text="${exception}">NullPointerException</span><br/>
-			<span class="message" th:text="${message}">There has been an internal error</span><br/>
-			<br/><br/>
+			<br/>
+			</div>
+			<div th:if="${status}==null">
+			<h2 th:text="${error.something}">Something went wrong</h2>			
+			<br/>
+			</div>
+			<!-- <div th:if="${url}">
+				<span th:text="${url}">www.onet.pl</span><br/>
+			</div> -->
+			<div th:if="${exception}">
+				<span th:text="${exception}">java.lang.NullPointerException</span><br/>
+			</div>
+			<div th:if="${message}">
+				<span th:text="${message}">There has been an internal error</span><br/>
+			</div>
+			<br/>
 			<img th:src="@{/images/sad.png}"></img>
-			
-			
-		
 	</div>
-	<!--  /CONTENT -->
-	<!--=================================== FOOTER ================================-->
-	<footer class="page-footer light-blue darken-1">
-		  <div class="container">
-            <div class="row">
-              <div class="col l6 s12">
-                <h5 class="white-text" th:text="#{footer.title}">Spring Boot</h5>
-                <p class="grey-text text-lighten-4" th:text="#{footer.message}"></p>
-              </div>
-              <div class="col l4 offset-l2 s12">
-                <h5 class="white-text" th:text="#{footer.links}">Links</h5>
-                <ul>
-                  <li><a class="grey-text text-lighten-3" href="https://spring.io/" target="_blank">Spring</a></li>
-                  <li><a class="grey-text text-lighten-3" href="http://heroku.com/" target="_blank">Heroku</a></li>
-                  <li><a class="grey-text text-lighten-3" href="http://github.com/" target="_blank">GitHub</a></li>
-                  <li><a class="grey-text text-lighten-3" href="http://materializecss.com/" target="_blank">Materialize</a></li>
-                  
-                </ul>
-                <h5 class="white-text" th:text="#{footer.contact}">Contact</h5>
-                <ul>
-                <li><a class="grey-text text-lighten-3" href="#!" th:text="#{footer.contact.form}">Spring</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="footer-copyright">
-            <div class="container">
-            © 2017 Krzysztof Michalak
-            </div>
-          </div>
-	</footer>
-	<!--=================================== /FOOTER ===============================-->
-
 </body>
 </html>

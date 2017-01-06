@@ -12,6 +12,10 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
@@ -24,10 +28,11 @@ public class DataSourceConfig {
 		return new EmbeddedDatabaseBuilder()
 				.setType(EmbeddedDatabaseType.H2)
 				.addScript("classpath:sql/schema.sql")
-				.addScript("classpath:sql/test-data.sql")
+				.addScript("classpath:sql/init-data.sql")
 				.build();
 	}
-	
+
+	@Profile("dev")
 	@Bean
 	public SessionFactory sessionFactory() {
 		DataSource dataSource = dataSource();
@@ -44,7 +49,7 @@ public class DataSourceConfig {
 	    sessionBuilder.scanPackages("sapp.model");
 	    return sessionBuilder.buildSessionFactory();
 	}
-
+	
 	@Bean
 	public HibernateTransactionManager getTransactionManager() {
 		SessionFactory sessionFactory = sessionFactory();
@@ -52,4 +57,19 @@ public class DataSourceConfig {
 		return transactionManager;
 	}
 	
+	@Bean
+    public UserDetailsService userDetailsService(){
+    	JdbcDaoImpl jdbcImpl = new JdbcDaoImpl();
+    	jdbcImpl.setDataSource(dataSource());
+    	jdbcImpl.setUsersByUsernameQuery("select username, password, enabled from users where lower(username)=lower(?)");
+    	jdbcImpl.setAuthoritiesByUsernameQuery("select b.username, a.role from user_roles a, users b where lower(b.username)=lower(?) and a.userid=b.userid");
+    	return jdbcImpl;
+    }
+	
+	@Bean
+	public PersistentTokenRepository persistentTokenRepository() {
+		JdbcTokenRepositoryImpl db = new JdbcTokenRepositoryImpl();
+		db.setDataSource(dataSource());
+		return db;
+	}
 }

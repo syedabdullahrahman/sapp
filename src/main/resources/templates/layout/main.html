@@ -22,12 +22,19 @@
 			<li><a href="?lang=en" class="waves-effect waves-light"><span
 					th:text="#{lang.english}" class="light-blue-text text-darken-2">English</span></a></li>
 		</ul>
+		
 		<!-- Dropdown Structure if is not authenticated -->
-		<ul id="dropdown-profile" class="dropdown-content">
-			<li><a href="#!" class="waves-effect waves-light"><span
+		<ul id="dropdown-profile" class="dropdown-content" sec:authorize="isAuthenticated()">
+			<li><a th:href="@{/profile}" class="waves-effect waves-light"><span
+					th:text="|#{profile.show}  ${#authentication.name}|" class="light-blue-text text-darken-2">Show</span></a></li>
+			<li><a href="javascript: document.logoutForm.submit()" class="waves-effect waves-light"><span
+					th:text="#{profile.logout}" class="light-blue-text text-darken-2">Log out</span></a></li>
+		</ul>
+		<ul id="dropdown-profile" class="dropdown-content" sec:authorize="isAnonymous()">
+			<li><a th:href="@{/login}" class="waves-effect waves-light"><span
 					th:text="#{profile.login}" class="light-blue-text text-darken-2">Log
 						in</span></a></li>
-			<li><a href="#!" class="waves-effect waves-light"><span
+			<li><a th:href="@{/underconstruction}" class="waves-effect waves-light"><span
 					th:text="#{profile.create}" class="light-blue-text text-darken-2">Create</span></a></li>
 		</ul>
 
@@ -44,14 +51,14 @@
 
 						<!-- <ul class="right hide-on-med-and-down"> -->
 						<ul class="right">
-							<li><a href="#!" class="waves-effect waves-light"><span
+							<li><a th:href="@{/underconstruction}" class="waves-effect waves-light"><span
 									th:text="#{navi.blog}">Blog</span><i
 									class="mdi-action-track-changes right"></i></a></li>
-							<li><a href="#!" class="waves-effect waves-light"><span
+							<li><a th:href="@{/underconstruction}" class="waves-effect waves-light"><span
 									th:text="#{navi.chat}">Chat</span><i
 									class="mdi-communication-message right"></i></a></li>
 							<!-- Dropdown Trigger -->
-							<li><a class="dropdown-button" data-beloworigin="true"
+							<li><a class="dropdown-button" data-beloworigin="true" data-constrainwidth="false"
 								href="#!" data-activates="dropdown-profile" data-hover="true">
 									<span th:text="#{navi.profile}">Profile</span><i
 									class="mdi-action-account-box right"></i>
@@ -114,6 +121,10 @@
 	</footer>
 	<!--=================================== /FOOTER ===============================-->
 	<!--=================================== SCRIPTS ===============================-->
+	<!-- do href post logout -->
+	<form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+      <input type="submit" value="Sign Out"/>
+   </form> 
 	<script type="text/javascript" layout:fragment="script">
 		
 	</script>

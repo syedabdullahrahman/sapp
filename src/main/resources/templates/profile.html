@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	layout:decorator="layout/main">
+<head lang="pl">
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="row">
+			<div class="col s12">
+				<h2 th:text="#{profile.title}">Hello on a page</h2>
+				<span th:text="#{profile.message}" class="flow-text">Welcome
+					message</span>
+				<ul class="flow-text">
+					<li><i class="mdi-image-navigate-next"></i><span
+						th:text="${name}"></span></li>
+					<li><i class="mdi-image-navigate-next"></i><span
+						th:text="${authorities}"></span></li>
+					<li sec:authorize="isAuthenticated()"><i
+						class="mdi-image-navigate-next"></i><span class="flow-text"
+						th:text="#{authentication.authenticated}"># This user is
+							authenticated.</span></li>
+					<li sec:authorize="isRememberMe()"><i
+						class="mdi-image-navigate-next"></i><span class="flow-text"
+						th:text="#{authentication.rememberme}"># This user is login
+							by "Remember Me Cookies". </span></li>
+					<li sec:authorize="isFullyAuthenticated()"><i
+						class="mdi-image-navigate-next"></i><span class="flow-text"
+						th:text="#{authentitaciton.loginpassword}"># This user is
+							login by username / password.</span></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

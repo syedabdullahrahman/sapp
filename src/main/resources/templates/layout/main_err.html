@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport"
+		content="width=device-width, initialscale=1, maximum-scale=1.0, user-scalable=no" />
+	<link href="/webjars/materializecss/0.96.0/css/materialize.css"
+		type="text/css" rel="stylesheet" media="screen,projection" />
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+	<title>Hello Spring</title>
+</head>
+<body>
+
+	<!-- NAVI -->
+<div class="navbar-fixed">
+		<!-- Dropdown Structure -->
+		<ul id="dropdown-lang" class="dropdown-content">
+			<li><a href="?lang=pl" class="waves-effect waves-light"><span
+					th:text="#{lang.polish}" class="light-blue-text text-darken-2">Polish</span></a></li>
+			<li><a href="?lang=en" class="waves-effect waves-light"><span
+					th:text="#{lang.english}" class="light-blue-text text-darken-2">English</span></a></li>
+		</ul>
+		
+		<!-- Dropdown Structure if is not authenticated -->
+		<ul id="dropdown-profile" class="dropdown-content" sec:authorize="isAuthenticated()">
+			<li><a th:href="@{/underconstruction}" class="waves-effect waves-light"><span
+					th:text="|#{profile.show}  ${#authentication.name}|" class="light-blue-text text-darken-2">Show</span></a></li>
+			<li><a href="javascript: document.logoutForm.submit()" class="waves-effect waves-light"><span
+					th:text="#{profile.logout}" class="light-blue-text text-darken-2">Log out</span></a></li>
+		</ul>
+		<ul id="dropdown-profile" class="dropdown-content" sec:authorize="isAnonymous()">
+			<li><a th:href="@{/login}" class="waves-effect waves-light"><span
+					th:text="#{profile.login}" class="light-blue-text text-darken-2">Log
+						in</span></a></li>
+			<li><a th:href="@{/underconstruction}" class="waves-effect waves-light"><span
+					th:text="#{profile.create}" class="light-blue-text text-darken-2">Create</span></a></li>
+		</ul>
+
+		<nav>
+			<div class="nav-wrapper">
+				<div class="row light-blue darken-1">
+					<div class="col s1">
+						<ul class="left">
+							<li><a th:href="@{/}" class="waves-effect waves-light"><i
+									class="mdi-action-home left"></i></a></li>
+						</ul>
+					</div>
+				</div>
+				<!-- /row -->
+			</div>
+		</nav>
+	</div>
+	<!-- /NAVI -->
+	<div class="container">
+	<!--  CONTENT -->
+<div class="row">
+			<div class="col s12">
+		<section layout:fragment="content">
+					<p>page content</p>
+				</section>
+		</div>
+		</div>
+	</div>
+	<!--  /CONTENT -->
+
+</body>
+</html>
