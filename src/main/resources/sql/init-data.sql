@@ -1,5 +1,5 @@
 INSERT INTO users(userid,username,password,enabled)
-VALUES ('001','Admin','$2a$04$lv/KdPIsH19vP0VUJhdn4e3iksPzy.NwJiY73jHXKwR162edrAVpG', true);
+VALUES ('001','Admin','$2a$04$UZWCi1I779DTvZzdYI/YG.oRidHjWNsxQcW9I7QqapOrYE8tXelu6', true);
 INSERT INTO users(userid,username,password,enabled)
 VALUES ('002','User','$2a$04$VYg7rxx7ZKLszJbLxAW48eMu/cYy8Asg4BFmOkEawwK6WfuywISdS', true);
 
