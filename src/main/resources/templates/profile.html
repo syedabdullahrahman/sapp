@@ -17,6 +17,10 @@
 						th:text="${name}"></span></li>
 					<li><i class="mdi-image-navigate-next"></i><span
 						th:text="${authorities}"></span></li>
+					<li><i class="mdi-image-navigate-next"></i><span
+						th:text="${sname}"></span></li>
+					<li><i class="mdi-image-navigate-next"></i><span
+						th:text="${sauth}"></span></li>
 					<li sec:authorize="isAuthenticated()"><i
 						class="mdi-image-navigate-next"></i><span class="flow-text"
 						th:text="#{authentication.authenticated}"># This user is

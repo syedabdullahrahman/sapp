@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+
 @Controller
 public class HomeController {
 	@SuppressWarnings("unused")
@@ -14,7 +15,7 @@ public class HomeController {
 	 * show welcome view
 	 * @return welcome view
 	 */
-	@RequestMapping("/")
+	@RequestMapping("/")	
 	public String home() {
 		return "welcome";
 	}
