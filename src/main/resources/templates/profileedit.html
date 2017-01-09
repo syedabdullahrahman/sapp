@@ -15,13 +15,11 @@
 				<h2 th:text="#{profile.create.profile.title}"></h2>
 			</div>
 		</div>
-		<form th:action="@{/profile/edit}" method="post" th:object="${form}">
+		<form th:action="@{/profile/edit}" method="post" th:object="${profileForm}">
 			<div class="row">
 				<div class="input-field col s6">
-					<input th:field="${form.name}" id="name" 
-					type="text" th:errorclass="invalid" /> 
-						<label
-						for="name" th:text="#{profile.name}">profile name</label>
+					<input th:field="${profileForm.name}" id="name" type="text" th:errorclass="invalid" /> 
+						<label for="name" th:text="#{profile.name}">profile name</label>
 					<div th:errors="*{name}" class="red-text">error</div>
 				</div>
 			</div>

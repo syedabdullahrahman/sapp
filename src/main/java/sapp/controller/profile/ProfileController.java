@@ -3,7 +3,6 @@ package sapp.controller.profile;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,8 +21,7 @@ public class ProfileController {
 
 	@Autowired
 	UserService userService;
-	@Autowired 
-	MessageSource messageSource;
+	
 	
 	private User getAuthenticatedUser(){
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -56,8 +54,7 @@ public class ProfileController {
 	 */
 	@RequestMapping(value = "/edit")
 	public String showUserEditForm(Model model) {
-		model.addAttribute("form", new ProfileForm(getAuthenticatedUser()));
-		model.addAttribute("txt", "txt");
+		model.addAttribute("profileForm", new ProfileForm(getAuthenticatedUser()));
 		return "profileedit";
 	}
 	
@@ -70,7 +67,7 @@ public class ProfileController {
 	 */
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
 	public String saveOrUpdateUser(
-			@Valid ProfileForm form,
+			@Valid ProfileForm profileForm,
 			BindingResult bindingResult){
 			System.out.println("here");
 		if(bindingResult.hasErrors()){

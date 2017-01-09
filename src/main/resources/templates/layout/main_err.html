@@ -23,25 +23,11 @@
 					th:text="#{lang.english}" class="light-blue-text text-darken-2">English</span></a></li>
 		</ul>
 		
-		<!-- Dropdown Structure if is not authenticated -->
-		<ul id="dropdown-profile" class="dropdown-content" sec:authorize="isAuthenticated()">
-			<li><a th:href="@{/underconstruction}" class="waves-effect waves-light"><span
-					th:text="|#{profile.show}  ${#authentication.name}|" class="light-blue-text text-darken-2">Show</span></a></li>
-			<li><a href="javascript: document.logoutForm.submit()" class="waves-effect waves-light"><span
-					th:text="#{profile.logout}" class="light-blue-text text-darken-2">Log out</span></a></li>
-		</ul>
-		<ul id="dropdown-profile" class="dropdown-content" sec:authorize="isAnonymous()">
-			<li><a th:href="@{/login}" class="waves-effect waves-light"><span
-					th:text="#{profile.login}" class="light-blue-text text-darken-2">Log
-						in</span></a></li>
-			<li><a th:href="@{/underconstruction}" class="waves-effect waves-light"><span
-					th:text="#{profile.create}" class="light-blue-text text-darken-2">Create</span></a></li>
-		</ul>
 
 		<nav>
 			<div class="nav-wrapper">
 				<div class="row light-blue darken-1">
-					<div class="col s1">
+				<div class="col s1">
 						<ul class="left">
 							<li><a th:href="@{/}" class="waves-effect waves-light"><i
 									class="mdi-action-home left"></i></a></li>
@@ -64,6 +50,19 @@
 		</div>
 	</div>
 	<!--  /CONTENT -->
-
+<!--=================================== SCRIPTS ===============================-->
+	<!-- do href post logout -->
+	<form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+      <input type="submit" value="Sign Out"/>
+   </form> 
+	<script type="text/javascript" layout:fragment="script">
+		
+	</script>
+	<script src="/webjars/jquery/2.1.4/jquery.js"></script>
+	<script src="/webjars/materializecss/0.96.0/js/materialize.js"></script>
+	<script type="text/javascript">
+		$(".dropdown-button").dropdown();
+	</script>
+	<!--=================================== /SCRIPTS ==============================-->
 </body>
 </html>
