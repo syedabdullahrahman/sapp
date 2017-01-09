@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	layout:decorator="layout/main">
+<head lang="pl">
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="row">
+			<div class="col s12" sec:authorize="isAuthenticated()">
+				<h2 th:text="#{profile.edit.profile.title}"></h2>
+			</div>
+			<div class="col s12" sec:authorize="isAnonymous()">
+				<h2 th:text="#{profile.create.profile.title}"></h2>
+			</div>
+		</div>
+		<form th:action="@{/profile/edit}" method="post" th:object="${form}">
+			<div class="row">
+				<div class="input-field col s6">
+					<input th:field="${form.name}" id="name" 
+					type="text" th:errorclass="invalid" /> 
+						<label
+						for="name" th:text="#{profile.name}">profile name</label>
+					<div th:errors="*{name}" class="red-text">error</div>
+				</div>
+			</div>
+			<div class="row s12">
+				<button class="btn waves-effect waves-light" type="submit"
+					name="save" th:text="#{submit}">
+					Wyślij <i class="mdi-content-send right"></i>
+				</button>
+			</div>
+		</form>
+	</div>
+</body>
+</html>

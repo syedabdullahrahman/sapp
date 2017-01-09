@@ -36,16 +36,6 @@ public class DataSourceConfig {
 
 	    return dataSource;
 	  }
-	@Profile("prod")
-	@Bean("dataSource")
-	public DataSource h2DataSource(){
-		return new EmbeddedDatabaseBuilder()
-				.setType(EmbeddedDatabaseType.H2)
-				//.addScript("classpath:sql/schema.sql")
-				//.addScript("classpath:sql/init-data.sql")
-				.build();
-	}
-
 	@Profile("dev")
 	@Bean
 	public SessionFactory sessionFactory() {
@@ -58,6 +48,15 @@ public class DataSourceConfig {
 		sessionBuilder.addProperties(properties);
 		sessionBuilder.scanPackages("sapp.model");
 		return sessionBuilder.buildSessionFactory();
+	}
+	@Profile("prod")
+	@Bean("dataSource")
+	public DataSource h2DataSource(){
+		return new EmbeddedDatabaseBuilder()
+				.setType(EmbeddedDatabaseType.H2)
+				//.addScript("classpath:sql/schema.sql")
+				//.addScript("classpath:sql/init-data.sql")
+				.build();
 	}
 	@Profile("prod")
 	@Bean("sessionFactory")

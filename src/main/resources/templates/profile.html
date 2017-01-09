@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml"
+	<html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
 	layout:decorator="layout/main">
@@ -14,13 +14,14 @@
 					message</span>
 				<ul class="flow-text">
 					<li><i class="mdi-image-navigate-next"></i><span
-						th:text="${name}"></span></li>
+						th:text="${user.username}"></span></li>
 					<li><i class="mdi-image-navigate-next"></i><span
-						th:text="${authorities}"></span></li>
+						th:text="${user.name}"></span></li>
 					<li><i class="mdi-image-navigate-next"></i><span
-						th:text="${sname}"></span></li>
-					<li><i class="mdi-image-navigate-next"></i><span
-						th:text="${sauth}"></span></li>
+						th:text="${user.email}"></span></li>
+						<li th:each="role : ${user.roles}"><i class="mdi-image-navigate-next"></i>
+				<span class="title" th:text="${role.name}">role name</span>
+					</li>
 					<li sec:authorize="isAuthenticated()"><i
 						class="mdi-image-navigate-next"></i><span class="flow-text"
 						th:text="#{authentication.authenticated}"># This user is
@@ -32,10 +33,15 @@
 					<li sec:authorize="isFullyAuthenticated()"><i
 						class="mdi-image-navigate-next"></i><span class="flow-text"
 						th:text="#{authentitaciton.loginpassword}"># This user is
-							login by username / password.</span></li>
+							login by user name / password.</span></li>
 				</ul>
+				<div class="col s12">
+				<a th:href="@{/profile/edit}"><i class="mdi-image-edit"></i><span th:text="#{profile.edit}">Edit profile</span></a>
+				</div>
 			</div>
 		</div>
+
+		
 	</div>
 </body>
 </html>
