@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	layout:decorator="layout/main">
+<head lang="pl">
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="row">
+			<div class="col s12">
+				<h2 th:text="#{profile.create.profile.title}"
+					class="orange-text text-darken-3"></h2>
+			</div>
+		</div>
+		<form th:action="@{/profile/create}" method="post" th:object="${registerForm}">
+			<div class="row">
+				<div class="input-field col s12">
+					<input th:field="${registerForm.username}" id="username" type="text" th:errorclass="invalid" /> 
+					<label for="username" th:text="#{profile.username}">profile name</label>
+					<div th:errors="*{username}" class="red-text">error</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s6">
+					<input th:field="${registerForm.name}" id="name" type="text" th:errorclass="invalid" /> 
+					<label for="name" th:text="#{profile.name}">profile name</label>
+					<div th:errors="*{name}" class="red-text">error</div>
+				</div>
+				<div class="input-field col s6">
+					<input th:field="${registerForm.email}" id="email" type="text" th:errorclass="invalid" /> 
+					<label for="email" th:text="#{profile.email}">email</label>
+					<div th:errors="*{email}" class="red-text">error</div>
+				</div>
+				<div class="input-field col s6">
+					<input th:field="${registerForm.password}" id="pass" type="password" th:errorclass="invalid" /> 
+					<label for="pass" th:text="#{profile.password}">email</label>
+					<div th:errors="*{password}" class="red-text">error</div>
+				</div>
+				<div class="input-field col s6">
+					<input th:field="${registerForm.repeatPassword}" id="pass2" type="password" th:errorclass="invalid" /> 
+					<label for="pass2" th:text="#{profile.repeat.password}">email</label>
+					<div th:errors="*{repeatPassword}" class="red-text">error</div>
+				</div>
+			</div>
+			<!-- /FIELDS -->
+			<!-- SAVE/CREATE BUTTON -->
+			<div class="row">
+				<div class="col s12">
+					<button class="btn waves-effect waves-light orange darken-3" type="submit" name="create" th:text="#{create}">
+						Wyślij <i class="mdi-content-send right"></i>
+					</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+</html>

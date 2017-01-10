@@ -36,8 +36,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				"/login", 
 				"/signin/**", 
 				"/signup",
-				"/profile/edit",
-				"/profile/save")
+				"/profile/create"
+				)
 		.permitAll()
 		.antMatchers("/admin").hasRole("ADMIN")
 		.anyRequest().authenticated().and()

@@ -25,7 +25,7 @@ public class LoginController {
 		User user = userService.findByUsername("User");
 		Role adminRole = roleService.findByName("ROLE_ADMIN");
 		Role userRole = roleService.findByName("ROLE_USER");
-
+		
 		// init if null
 		if (adminRole == null) {
 			adminRole = new Role();

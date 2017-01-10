@@ -22,8 +22,7 @@ public class RoleServiceImpl extends GenericServiceAdapter<Role, Long> implement
 
 	@Override
 	public Role findByName(String roleName) {
-		roleRepository.findByName(roleName);
-		return null;
+		return roleRepository.findByName(roleName);
 	}
 	
 

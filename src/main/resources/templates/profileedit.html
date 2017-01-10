@@ -13,10 +13,6 @@
 				<h2 th:text="#{profile.edit.profile.title}"
 					class="orange-text text-darken-3"></h2>
 			</div>
-			<div class="col s12" sec:authorize="isAnonymous()">
-				<h2 th:text="#{profile.create.profile.title}"
-					class="orange-text text-darken-3"></h2>
-			</div>
 		</div>
 		<!-- AVATAR -->
 		<div class="row" sec:authorize="isAuthenticated()">
@@ -42,7 +38,7 @@
 		<!-- /AVATAR -->
 		<form th:action="@{/profile/edit}" method="post"
 			th:object="${profileForm}">
-			<!-- USERNAME FIELD AND AVATAR -->
+			<!-- USERNAME -->
 			<div class="row" sec:authorize="isAuthenticated()">
 				<div class="input-field col s12" >
 					<h5 th:text="${profileForm.username}"
@@ -51,15 +47,7 @@
 						type="hidden" th:errorclass="invalid" />
 				</div>
 			</div>
-			<div class="row" sec:authorize="isAnonymous()">
-			<div class="input-field col s12" >
-					<input th:field="${profileForm.username}" id="username" type="text"
-						th:errorclass="invalid" /> <label for="username"
-						th:text="#{profile.username}">profile name</label>
-					<div th:errors="*{username}" class="red-text">error</div>
-				</div>
-			</div>
-			<!-- /USERNAME FIELD AND AVATAR -->
+			<!-- /USERNAME -->
 			<!-- FIELDS -->
 			<div class="row">
 				<div class="input-field col s6">
@@ -82,12 +70,6 @@
 			<div class="col s12" sec:authorize="isAuthenticated()">
 				<button class="btn waves-effect waves-light orange darken-3"
 					type="submit" name="update" th:text="#{update}">
-					Wyślij <i class="mdi-content-send right"></i>
-				</button>
-			</div>
-			<div class="col s12" sec:authorize="isAnonymous()">
-				<button class="btn waves-effect waves-light orange darken-3"
-					type="submit" name="create" th:text="#{create}">
 					Wyślij <i class="mdi-content-send right"></i>
 				</button>
 			</div>
