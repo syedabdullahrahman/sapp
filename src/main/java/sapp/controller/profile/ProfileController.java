@@ -22,7 +22,6 @@ public class ProfileController {
 	@Autowired
 	UserService userService;
 	
-	
 	private User getAuthenticatedUser(){
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
@@ -54,7 +53,9 @@ public class ProfileController {
 	 */
 	@RequestMapping(value = "/edit")
 	public String showUserEditForm(Model model) {
-		model.addAttribute("profileForm", new ProfileForm(getAuthenticatedUser()));
+		User user = getAuthenticatedUser();
+		model.addAttribute("user", user);
+		model.addAttribute("profileForm", new ProfileForm(user));
 		return "profileedit";
 	}
 	
@@ -66,30 +67,24 @@ public class ProfileController {
 	 * @return
 	 */
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
-	public String saveOrUpdateUser(
-			@Valid ProfileForm profileForm,
-			BindingResult bindingResult){
-			System.out.println("here");
+	public String saveOrUpdateUser(@Valid ProfileForm profileForm,BindingResult bindingResult){
 		if(bindingResult.hasErrors()){
-			System.out.println("here2");
+			System.out.println("errors");
 			return "profileedit";
 		}
-			System.out.println("SAVE OR UPDATE");
+		
+		User modelUser = userService.findByUsername(profileForm.getUsername());
+		if(modelUser == null){
+			modelUser= new User();
+		}
+		
+		modelUser.setName(profileForm.getName());
+		modelUser.setEmail(profileForm.getEmail());
+		userService.saveOrUpdate(modelUser);
+		
+		System.out.println("to profile/show");
+		
 		return "redirect:/profile/show";
 	}
-	
-	
-	@RequestMapping(value = "/profiless", params = { "save" }, method = RequestMethod.POST)
-	public String saveProfile(@Valid ProfileForm profileForm,
-			BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			return "profile/profilePage";
-		}
-		 return "redirect:/search/mixed;keywords=";
-	}
-	
-	
-	
-	
 
 }
