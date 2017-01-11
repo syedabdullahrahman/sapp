@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-	<html xmlns:th="http://www.thymeleaf.org"
+<html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
 	layout:decorator="layout/main">
@@ -7,41 +7,75 @@
 </head>
 <body>
 	<div layout:fragment="content">
+		<!-- CONTENT -->
 		<div class="row">
 			<div class="col s12">
-				<h2 th:text="#{profile.title}" class="orange-text text-darken-3">Hello on a page</h2>
+				<h2 th:text="#{profile.title}" class="orange-text text-darken-3">Hello
+					on a page</h2>
 				<span th:text="#{profile.message}" class="flow-text">Welcome
 					message</span>
-				<ul class="flow-text">
-					<li><i class="mdi-image-navigate-next"></i><span
-						th:text="${user.username}"></span></li>
-					<li><i class="mdi-image-navigate-next"></i><span
-						th:text="${user.name}"></span></li>
-					<li><i class="mdi-image-navigate-next"></i><span
-						th:text="${user.email}"></span></li>
-						<li th:each="role : ${user.roles}"><i class="mdi-image-navigate-next"></i>
-				<span class="title" th:text="${role.name}">role name</span>
-					</li>
-					<li sec:authorize="isAuthenticated()"><i
-						class="mdi-image-navigate-next"></i><span class="flow-text"
-						th:text="#{authentication.authenticated}"># This user is
-							authenticated.</span></li>
-					<li sec:authorize="isRememberMe()"><i
-						class="mdi-image-navigate-next"></i><span class="flow-text"
-						th:text="#{authentication.rememberme}"># This user is login
-							by "Remember Me Cookies". </span></li>
-					<li sec:authorize="isFullyAuthenticated()"><i
-						class="mdi-image-navigate-next"></i><span class="flow-text"
-						th:text="#{authentitaciton.loginpassword}"># This user is
-							login by user name / password.</span></li>
-				</ul>
-				<div class="col s12">
-				<a th:href="@{/profile/edit}" class="orange-text text-darken-3"><i class="mdi-image-edit"></i> <span th:text="#{profile.edit}">Edit profile</span></a>
+			</div>
+		</div>
+		<!-- PROFILE USERNAME AVATAR -->
+		<div class="row">
+			<div class="col s5">
+				<h4 th:text="${user.username}"
+					class="orange-text text-darken-3 right"></h4>
+			</div>
+			<div class="col s5 offset-s2">
+				<img th:src="@{/useravatar}" width="100" height="100" />
+			</div>
+		</div>
+		<div class="row flow-text">
+			<div class="col s8 offset-s2 orange lighten-5">
+				<div class="row">
+					<div class="col s12 orange">
+						<span th:text="#{profile.user.data}">user data</span>
+						<i class="mdi-social-person right"></i> 
+					</div>
+					<div class="col s6">
+						<span th:text="${user.name}"></span>
+					</div>
+					<div class="col s6">
+						<span th:text="${user.email}"></span>
+					</div>
+					<div class="col s12 orange"> 
+						<span th:text="#{profile.roles}">roles</span>
+					<i class="mdi-hardware-security right"></i>						
+					</div>
+					<div class="col s12">
+							<div th:each="role : ${user.roles}" style="diplay: inline;">
+							 <span class="title"
+								th:text="${role.name}">role name</span></div>
+					</div>
+					<div class="col s12 orange">
+						<span th:text="#{profile.current.session.info}">session
+							info</span>
+							<i class="mdi-hardware-cast right"></i> 
+					</div>
+					<div class="col s12">
+						<span sec:authorize="isAuthenticated()"
+							th:text="#{authentication.authenticated}">auth</span>
+					</div>
+					<div class="col s12">
+						<span sec:authorize="isRememberMe()"
+							th:text="#{authentication.rememberme}">remember me</span>
+					</div>
+					<div class="col s12">
+						<span sec:authorize="isFullyAuthenticated()"
+							th:text="#{authentitaciton.loginpassword}">login pass</span>
+					</div>
 				</div>
 			</div>
 		</div>
+		<div class="col s12">
+			<a th:href="@{/profile/edit}" class="orange-text text-darken-3"><i
+				class="mdi-image-edit"></i> <span th:text="#{profile.edit}">Edit
+					profile</span></a>
+		</div>
 
-		
+
+		<!-- /CONTENT -->
 	</div>
 </body>
 </html>

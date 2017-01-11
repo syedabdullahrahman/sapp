@@ -57,8 +57,8 @@ public class LoginController {
 			user = new User();
 			user.setUsername("User");
 			user.setPassword("$2a$04$VYg7rxx7ZKLszJbLxAW48eMu/cYy8Asg4BFmOkEawwK6WfuywISdS");
-			user.setName("User Name");
-			user.setEmail("user@sjava.com");
+			user.setName("Normal User");
+			user.setEmail("normaluser@sjava.com");
 			// many to many
 			user.getRoles().add(userRole);
 			userRole.getUsers().add(user);
