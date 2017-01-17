@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-	<html xmlns:th="http://www.thymeleaf.org"
+<html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
@@ -22,19 +22,26 @@
 			<li><a href="?lang=en" class="waves-effect waves-light"><span
 					th:text="#{lang.english}" class="light-blue-text text-darken-2">English</span></a></li>
 		</ul>
-		
+
 		<!-- Dropdown Structure if is not authenticated -->
-		<ul id="dropdown-profile" class="dropdown-content" sec:authorize="isAuthenticated()">
-			<li><a th:href="@{/profile/show}" class="waves-effect waves-light"><span
-					th:text="|#{profile.show}  ${#authentication.name}|" class="light-blue-text text-darken-2">Show</span></a></li>
-			<li><a href="javascript: document.logoutForm.submit()" class="waves-effect waves-light"><span
-					th:text="#{profile.logout}" class="light-blue-text text-darken-2">Log out</span></a></li>
+		<ul id="dropdown-profile" class="dropdown-content"
+			sec:authorize="isAuthenticated()">
+			<li><a th:href="@{/profile/show}"
+				class="waves-effect waves-light"><span
+					th:text="|#{profile.show}  ${#authentication.name}|"
+					class="light-blue-text text-darken-2">Show</span></a></li>
+			<li><a href="javascript: document.logoutForm.submit()"
+				class="waves-effect waves-light"><span
+					th:text="#{profile.logout}" class="light-blue-text text-darken-2">Log
+						out</span></a></li>
 		</ul>
-		<ul id="dropdown-profile" class="dropdown-content" sec:authorize="isAnonymous()">
+		<ul id="dropdown-profile" class="dropdown-content"
+			sec:authorize="isAnonymous()">
 			<li><a th:href="@{/login}" class="waves-effect waves-light"><span
 					th:text="#{profile.login}" class="light-blue-text text-darken-2">Log
 						in</span></a></li>
-			<li><a th:href="@{/profile/create}" class="waves-effect waves-light"><span
+			<li><a th:href="@{/profile/create}"
+				class="waves-effect waves-light"><span
 					th:text="#{profile.create}" class="light-blue-text text-darken-2">Create</span></a></li>
 		</ul>
 
@@ -51,16 +58,18 @@
 
 						<!-- <ul class="right hide-on-med-and-down"> -->
 						<ul class="right">
-							<li><a th:href="@{/underconstruction}" class="waves-effect waves-light"><span
+							<li><a th:href="@{/underconstruction}"
+								class="waves-effect waves-light"><span
 									th:text="#{navi.blog}">Blog</span><i
 									class="mdi-action-track-changes right"></i></a></li>
-							<li><a th:href="@{/underconstruction}" class="waves-effect waves-light"><span
+							<li><a th:href="@{/chat}" class="waves-effect waves-light"><span
 									th:text="#{navi.chat}">Chat</span><i
 									class="mdi-communication-message right"></i></a></li>
 							<!-- Dropdown Trigger -->
-							<li><a class="dropdown-button" data-beloworigin="true" data-constrainwidth="false"
-								href="#!" data-activates="dropdown-profile" data-hover="true">
-									<span th:text="#{navi.profile}">Profile</span><i
+							<li><a class="dropdown-button" data-beloworigin="true"
+								data-constrainwidth="false" href="#!"
+								data-activates="dropdown-profile" data-hover="true"> <span
+									th:text="#{navi.profile}">Profile</span><i
 									class="mdi-action-account-box right"></i>
 							</a></li>
 							<!-- Dropdown Trigger -->
@@ -91,43 +100,44 @@
 	<!--=================================== /CONTENT ==============================-->
 	<!--=================================== FOOTER ================================-->
 	<footer class="page-footer light-blue darken-1">
-		  <div class="container">
-            <div class="row">
-              <div class="col l6 s12">
-                <h5 class="white-text" th:text="#{footer.title}">Spring Boot</h5>
-                <p class="grey-text text-lighten-4" th:text="#{footer.message}"></p>
-              </div>
-              <div class="col l4 offset-l2 s12">
-                <h5 class="white-text" th:text="#{footer.links}">Links</h5>
-                <ul>
-                  <li><a class="grey-text text-lighten-3" href="https://spring.io/" target="_blank">Spring</a></li>
-                  <li><a class="grey-text text-lighten-3" href="http://heroku.com/" target="_blank">Heroku</a></li>
-                  <li><a class="grey-text text-lighten-3" href="http://github.com/" target="_blank">GitHub</a></li>
-                  <li><a class="grey-text text-lighten-3" href="http://materializecss.com/" target="_blank">Materialize</a></li>
-                  
-                </ul>
-                <h5 class="white-text" th:text="#{footer.contact}">Contact</h5>
-                <ul>
-                <li><a class="grey-text text-lighten-3" href="#!" th:text="#{footer.contact.form}">Spring</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="footer-copyright">
-            <div class="container">
-            © 2017 Krzysztof Michalak
-            </div>
-          </div>
+		<div class="container">
+			<div class="row">
+				<div class="col l6 s12">
+					<h5 class="white-text" th:text="#{footer.title}">Spring Boot</h5>
+					<p class="grey-text text-lighten-4" th:text="#{footer.message}"></p>
+				</div>
+				<div class="col l4 offset-l2 s12">
+					<h5 class="white-text" th:text="#{footer.links}">Links</h5>
+					<ul>
+						<li><a class="grey-text text-lighten-3"
+							href="https://spring.io/" target="_blank">Spring</a></li>
+						<li><a class="grey-text text-lighten-3"
+							href="http://heroku.com/" target="_blank">Heroku</a></li>
+						<li><a class="grey-text text-lighten-3"
+							href="http://github.com/" target="_blank">GitHub</a></li>
+						<li><a class="grey-text text-lighten-3"
+							href="http://materializecss.com/" target="_blank">Materialize</a></li>
+
+					</ul>
+					<h5 class="white-text" th:text="#{footer.contact}">Contact</h5>
+					<ul>
+						<li><a class="grey-text text-lighten-3" href="#!"
+							th:text="#{footer.contact.form}">Spring</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="footer-copyright">
+			<div class="container">© 2017 Krzysztof Michalak</div>
+		</div>
 	</footer>
 	<!--=================================== /FOOTER ===============================-->
 	<!--=================================== SCRIPTS ===============================-->
 	<!-- do href post logout -->
 	<form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
-      <input type="submit" value="Sign Out"/>
-   </form> 
-	<script type="text/javascript" layout:fragment="script">
-		
-	</script>
+		<input type="submit" value="Sign Out" />
+	</form>
+	<script type="text/javascript" layout:fragment="script"></script>
 	<script src="/webjars/jquery/2.1.4/jquery.js"></script>
 	<script src="/webjars/materializecss/0.96.0/js/materialize.js"></script>
 	<script type="text/javascript">

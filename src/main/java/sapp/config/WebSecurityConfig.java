@@ -13,6 +13,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
+
+
 @Configuration
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -38,7 +40,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				"/login", 
 				"/signin/**", 
 				"/signup",
-				"/profile/create"
+				"/profile/create",
+				"/chat"
 				)
 		.permitAll()
 		.antMatchers("/admin").hasRole("ADMIN")

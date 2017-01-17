@@ -70,12 +70,6 @@ public class ProfileController {
 			return "register";
 		}
 		
-		
-
-		
-		
-//		Password.registerForm.password.repeat=Password must contain at lease one digit, upper and lowercase character, special character: [ ! @ # $ % ]
-		
 		// user role
 		Role userRole = roleService.findByName("ROLE_USER");
 		User modelUser = new User();
@@ -90,7 +84,7 @@ public class ProfileController {
 		userRole.getUsers().add(modelUser);
 		
 		userService.save(modelUser);
-
+		
 		return "redirect:/profile/show";
 	}
 	

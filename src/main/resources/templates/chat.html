@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	layout:decorator="layout/main">
+<head lang="pl">
+</head>
+<body>
+<div layout:fragment="script">
+	<script th:src="@{/webjars/sockjs-client/1.0.2/sockjs.min.js}"></script>
+</div>
+	<div layout:fragment="content">
+		<!-- CONTENT -->
+		
+		<!-- /CONTENT -->
+	</div>
+</body>
+</html>
