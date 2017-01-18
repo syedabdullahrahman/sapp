@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="viewport"
 	content="width=device-width, initialscale=1, maximum-scale=1.0, user-scalable=no" />
-<link th:href="@{/webjars/materializecss/0.96.0/css/materialize.css}"
+<link th:href="@{/webjars/materializecss/css/materialize.css}"
 	type="text/css" rel="stylesheet" media="screen,projection" />
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet" />
@@ -133,16 +133,22 @@
 	</footer>
 	<!--=================================== /FOOTER ===============================-->
 	<!--=================================== SCRIPTS ===============================-->
+	<!-- JQUERY -->
+	<script th:src="@{/webjars/jquery/jquery.js}"></script>
+	<!-- MATERIALIZE JS -->
+	<script th:src="@{/webjars/materializecss/js/materialize.js}"></script>
+	<!-- ALL SPECIFIC SCRIPTS FROM CHILD VIEWS -->
+	<script type="text/javascript" layout:fragment="script">
+	</script>
+	<!-- DROPDOWN -->
+	<script type="text/javascript">
+		$(".dropdown-button").dropdown();
+	</script>
+	<!-- LOGOUT HIDDEN FORM -->
 	<!-- do href post logout -->
 	<form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
 		<input type="submit" value="Sign Out" />
 	</form>
-	<script type="text/javascript" layout:fragment="script"></script>
-	<script th:src="@{/webjars/jquery/2.1.4/jquery.js}"></script>
-	<script th:src="@{/webjars/materializecss/0.96.0/js/materialize.js}"></script>
-	<script type="text/javascript">
-		$(".dropdown-button").dropdown();
-	</script>
 	<!--=================================== /SCRIPTS ==============================-->
 </body>
 </html>
