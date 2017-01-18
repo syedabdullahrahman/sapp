@@ -14,7 +14,7 @@
 					<span class="card-title" th:text="#{login.error}">Błędna
 						nazwa lub hasło</span>
 				</div>
-				<form class="col s12" action="/login" method="post">
+				<form class="col s12" th:action="@{/login}" method="post">
 					<div class="row">
 						<div class="input-field col s12">
 							<input id="username" name="username" type="text" />

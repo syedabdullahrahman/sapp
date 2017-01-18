@@ -30,7 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 		.formLogin().loginPage("/login").usernameParameter("username").passwordParameter("password")
-		 .successHandler(savedRequestAwareAuthenticationSuccessHandler())
+		.successHandler(savedRequestAwareAuthenticationSuccessHandler())
 		.and().logout().logoutSuccessUrl("/")
 		.and().exceptionHandling().accessDeniedPage("/noaccess")
 		.and().authorizeRequests()
@@ -51,6 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.rememberMe().tokenRepository(persistentTokenRepository)
 		.tokenValiditySeconds(1209600);
 	}
+	
 	
 	@Bean
 	public SavedRequestAwareAuthenticationSuccessHandler savedRequestAwareAuthenticationSuccessHandler() {
