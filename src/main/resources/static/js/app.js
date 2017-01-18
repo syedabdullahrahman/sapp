@@ -13,21 +13,15 @@ function setConnected(connected) {
 }
 
 function connect() {
-	alert("connect");
     var socket = new SockJS('/chat-websocket');
-    alert("set socket done");
     stompClient = Stomp.over(socket);
-    alert("set stomp client done");
-    /*stompClient.connect({}, function (frame) {
-    	alert("inside: set true:");
+    stompClient.connect({}, function (frame) {
         setConnected(true);
         console.log('Connected: ' + frame);
-        alert("connected " + frame);
-        alert("subscribe:");
         stompClient.subscribe('/topic/greetings', function (greeting) {
             showGreeting(JSON.parse(greeting.body).content);
         });
-    });*/
+    });
 }
 
 function disconnect() {

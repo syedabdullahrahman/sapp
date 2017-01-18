@@ -20,8 +20,8 @@ public class ChatController {
 	
 	@MessageMapping("/hello")
     @SendTo("/topic/greetings")
-    public String greeting(String message) throws Exception {
-        return "Hello, " + message + "!";
+    public ChatMessage greeting(InitMessage message) throws Exception {
+        return new ChatMessage("Hello, " + message.getName() + "!");
     }
 }
 
