@@ -38,7 +38,7 @@
 							<input type="file" id="file" name="file" style="display: none" />
 							<label for="file"
 								class="btn waves-effect waves-light orange darken-3"> <span
-								th:text="#{profile.choose.avatar}">choose avatar</span>
+								th:text="#{profile.choose.avatar}"></span>
 							</label>
 						</div>
 						<div class="col s7 valign-wrapper">
@@ -48,8 +48,8 @@
 					<div class="row">
 						<div class="col s12">
 							<button class="btn waves-effect waves-light orange darken-3"
-								type="submit" name="upload" th:text="#{upload}">
-								submit <i class="mdi-content-send right"></i>
+								type="submit" name="upload">
+								<span  th:text="#{upload}"></span><i class="mdi-content-send right"></i>
 							</button>
 						</div>
 					</div>
@@ -89,8 +89,8 @@
 				<div class="row">
 					<div class="col s12" sec:authorize="isAuthenticated()">
 						<button class="btn waves-effect waves-light orange darken-3"
-							type="submit" name="update" th:text="#{update}">
-							Submit <i class="mdi-content-send right"></i>
+							type="submit" name="update">
+							<span th:text="#{update}"></span><i class="mdi-content-send right"></i>
 						</button>
 					</div>
 				</div>

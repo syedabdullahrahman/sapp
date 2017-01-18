@@ -36,9 +36,8 @@
 					</div>
 					<div class="row center">
 					<br/>
-						<button class="btn waves-effect waves-light orange darken-3" type="submit"
-							name="action" th:text="#{login.submit}">
-							Wyślij <i class="mdi-content-send right"></i>
+						<button class="btn waves-effect waves-light orange darken-3" type="submit" name="action">
+							<span th:text="#{login.submit}"></span><i class="mdi-content-send right"></i>
 						</button>
 					</div>
 					<input type="hidden" th:name="${_csrf.parameterName}"
