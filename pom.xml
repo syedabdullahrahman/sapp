@@ -6,7 +6,8 @@
 	<groupId>msoft</groupId>
 	<artifactId>sapp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	 <packaging>war</packaging> 
+	<!-- <packaging>war</packaging> -->
+	<packaging>jar</packaging>
 
 	<name>sapp</name>
 	<description>Spring Boot App</description>
@@ -26,12 +27,13 @@
 
 	<dependencies>
 	
-	<!-- WAR -->
+	<!-- WAR 
 	    <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-tomcat</artifactId>
         <scope>provided</scope>
     </dependency>
+    -->
 		<!-- WEB -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
