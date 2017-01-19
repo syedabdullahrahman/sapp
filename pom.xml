@@ -26,7 +26,12 @@
 	</properties>
 
 	<dependencies>
-	
+	<!-- DEVTOOLS -->
+	 <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-devtools</artifactId>
+        <optional>true</optional>
+    </dependency>
 	<!-- WAR 
 	    <dependency>
         <groupId>org.springframework.boot</groupId>

@@ -2,6 +2,7 @@ package sapp.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +25,11 @@ public class UserServiceImpl extends GenericServiceAdapter<User, Long> implement
 	@Transactional
 	public User findByUsername(String username) {
 		return userRepository.findByUsername(username);
+	}
+
+	@Override
+	public String getPrincipalName() {
+		return SecurityContextHolder.getContext().getAuthentication().getName();
 	}
 
 }

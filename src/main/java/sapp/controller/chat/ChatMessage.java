@@ -1,18 +1,47 @@
 package sapp.controller.chat;
 
-public class ChatMessage {
+import java.io.Serializable;
 
-    private String content;
+public class ChatMessage implements Serializable{
+
+	private static final long serialVersionUID = -7757483769735725889L;
+	private String content;
+    private String sender;
 
     public ChatMessage() {
     }
 
-    public ChatMessage(String content) {
+    public ChatMessage(String sender, String content) {
         this.content = content;
+        this.sender = sender;
     }
 
-    public String getContent() {
-        return content;
-    }
+	/**
+	 * @return the content
+	 */
+	public String getContent() {
+		return content;
+	}
+
+	/**
+	 * @param content the content to set
+	 */
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	/**
+	 * @return the sender
+	 */
+	public String getSender() {
+		return sender;
+	}
+
+	/**
+	 * @param sender the sender to set
+	 */
+	public void setSender(String sender) {
+		this.sender = sender;
+	}
 
 }
