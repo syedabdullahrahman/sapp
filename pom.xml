@@ -6,8 +6,7 @@
 	<groupId>msoft</groupId>
 	<artifactId>sapp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<!-- <packaging>war</packaging> -->
-	<packaging>jar</packaging>
+	 <packaging>war</packaging> 
 
 	<name>sapp</name>
 	<description>Spring Boot App</description>
@@ -26,8 +25,13 @@
 	</properties>
 
 	<dependencies>
-		<!-- WAR <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-tomcat</artifactId> 
-			<scope>provided</scope> </dependency> -->
+	
+	<!-- WAR -->
+	    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-tomcat</artifactId>
+        <scope>provided</scope>
+    </dependency>
 		<!-- WEB -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -45,16 +49,16 @@
 		</dependency>
 		<!-- WEBSOCKET -->
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-websocket</artifactId>
-		</dependency>
+        	<groupId>org.springframework.boot</groupId>
+        	<artifactId>spring-boot-starter-websocket</artifactId>
+        </dependency>
 		<!-- JPA -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 		<dependency>
-			<!-- SECURITY -->
+		<!-- SECURITY -->
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
@@ -69,8 +73,8 @@
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-configuration-processor</artifactId>
+    	<groupId>org.springframework.boot</groupId>
+    		<artifactId>spring-boot-configuration-processor</artifactId>
 		</dependency>
 		<!-- TEST -->
 		<dependency>
@@ -80,9 +84,9 @@
 		</dependency>
 		<!-- WEBJARS START -->
 		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>webjars-locator</artifactId>
-		</dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>webjars-locator</artifactId>
+        </dependency>
 		<dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>materializecss</artifactId>
@@ -94,15 +98,15 @@
 			<version>3.1.0</version>
 		</dependency>
 		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>sockjs-client</artifactId>
-			<version>1.0.2</version>
+		    <groupId>org.webjars</groupId>
+		    <artifactId>sockjs-client</artifactId>
+		    <version>1.0.2</version>
 		</dependency>
-		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>stomp-websocket</artifactId>
-			<version>2.3.3</version>
-		</dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>stomp-websocket</artifactId>
+            <version>2.3.3</version>
+        </dependency>
 		<!-- WEBJARS END -->
 
 		<!-- SWAGGER2 -->
