@@ -32,7 +32,7 @@ public class ChatController {
 	@Autowired
     ServletContext context;
 
-	private ArrayList<ChatUser> users;
+	private ArrayList<String> users;
 	
 	
 	public ChatController(){
@@ -50,19 +50,7 @@ public class ChatController {
 		messaging.convertAndSend("/topic/messages", 
 				new ChatMessage("SERVER",message.getName()+" joined!"));
 		
-		
-		User modelUser = userService.findByUsername(message.getName());
-		String path;
-		if( modelUser.getAvatarPath() ==  null || modelUser.getAvatarPath().isEmpty()){
-			path = "/images/profile/anonymous.png";
-		}else{
-			Resource picturePath = (new DefaultResourceLoader()).getResource("file:./" + modelUser.getAvatarPath());
-			/images/profile --> upload here thanks to the "get real path" <- change in upload properties the path	
-			path = context.getRealPath(picturePath.getURI().toString());??
-		}
-		
-		
-		users.add(new ChatUser(message.getName(),path));
+		users.add(message.getName());
 		messaging.convertAndSend("/topic/users",
 				new UserListMessage(users));
     }

@@ -6,13 +6,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URLConnection;
-import java.nio.file.AccessDeniedException;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.MessageSource;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.FileSystemResource;
@@ -23,6 +23,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -34,7 +35,7 @@ import sapp.model.User;
 import sapp.service.UserService;
 
 @Controller
-public class UploadControler {
+public class UploadController {
 	private final Resource picturesDir;
 	private final Resource anonymousPicture;
 	private final MessageSource messageSource;
@@ -42,7 +43,7 @@ public class UploadControler {
 	@Autowired UserService userService;
 
     @Autowired
-    public UploadControler(UploadProperties uploadProperties,
+    public UploadController(UploadProperties uploadProperties,
                                    MessageSource messageSource) {
         picturesDir = uploadProperties.getPicturesUploadPath();
         anonymousPicture = uploadProperties.getAnonymousPicture();
@@ -82,11 +83,31 @@ public class UploadControler {
 				picturePath = (new DefaultResourceLoader()).getResource("file:./" + modelUser.getAvatarPath());
 			}
 		}else{
-			picturePath = anonymousPicture;//getPicturePath();
+			picturePath = anonymousPicture;
 		}
         response.setHeader("Content-Type", URLConnection.guessContentTypeFromName(picturePath.getFilename()));
 		IOUtils.copy(picturePath.getInputStream(), response.getOutputStream());
 	}
+	
+	@Cacheable
+	private Resource getAvatarResourceByUsername(String username){
+		Resource picturePath;
+		User modelUser = userService.findByUsername(username);
+		if( modelUser.getAvatarPath() ==  null || modelUser.getAvatarPath().isEmpty()){
+			picturePath = anonymousPicture;
+		}else{
+			picturePath = (new DefaultResourceLoader()).getResource("file:./" + modelUser.getAvatarPath());
+		}
+		return picturePath;
+	}
+	
+	@RequestMapping(value="/useravatar/{username}")
+	public void getUserAvatar(HttpServletResponse response, @PathVariable String username) throws IOException {
+		Resource res = getAvatarResourceByUsername(username);
+		response.setHeader("Content-Type", URLConnection.guessContentTypeFromName(res.getFilename()));
+		IOUtils.copy(res.getInputStream(), response.getOutputStream());
+	}
+	
 
 	// ---------------- helpers
 	private String copyFileToPictures(MultipartFile file) throws IOException {

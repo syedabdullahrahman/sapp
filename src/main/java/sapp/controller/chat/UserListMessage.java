@@ -6,27 +6,27 @@ import java.util.ArrayList;
 public class UserListMessage implements Serializable{
 
 	private static final long serialVersionUID = 6141348167516372321L;
-	ArrayList<ChatUser> users;
+	ArrayList<String> users;
 
 	public UserListMessage() {
 		users = new ArrayList<>();
 	}
 
-	public UserListMessage(ArrayList<ChatUser> users) {
+	public UserListMessage(ArrayList<String> users) {
 		this.users = users;
 	}
 
 	/**
 	 * @return the users
 	 */
-	public ArrayList<ChatUser> getUsers() {
+	public ArrayList<String> getUsers() {
 		return users;
 	}
 
 	/**
 	 * @param users the users to set
 	 */
-	public void setUsers(ArrayList<ChatUser> users) {
+	public void setUsers(ArrayList<String> users) {
 		this.users = users;
 	}
 	

@@ -14,9 +14,20 @@ function setConnected(connected) {
     $("#users").html("");
 }
 
+function wsURL(path) {
+    var protocol = (location.protocol === 'https:') ? 'wss://' : 'ws://';
+    var url = protocol + location.host;
+    if(location.hostname === 'localhost') {
+        url += '/' + location.pathname.split('/')[1]; // add context path
+    }
+    return url + path;
+}
+
+
 function connect() {
-    var socket = new SockJS('/chat-websocket');
-    stompClient = Stomp.over(socket);
+	var path = wsURL('/chat-websocket');
+	var socket = new SockJS('/chat-websocket');
+	stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         setConnected(true);
         console.log('Connected: ' + frame);
@@ -57,8 +68,8 @@ function showMessage(sender, message) {
 
 function showUsers(users) {
 	for(var i = 0; i < users.length; i++) {
-	    var obj = users[i];
-	    $("#messages").append("<span>" +obj.name + " <img src='" + obj.avatarPath + "' style='width:25px; height: 25px;'/></span><br/>");
+	    var user = users[i];
+	    $("#messages").append("<span>" + user + " <img src='/useravatar/" + user + "' style='width:25px; height: 25px;'/></span><br/>");
 	}
 	
 	
