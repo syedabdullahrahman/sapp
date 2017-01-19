@@ -1,7 +1,7 @@
 var stompClient = null;
 
 function setConnected(connected) {
-	$("#name").prop("disabled", connected);
+	$("#send").prop("disabled", !connected);
 	$("#connect").prop("disabled", connected);
     $("#disconnect").prop("disabled", !connected);
     if (connected) {
@@ -10,7 +10,8 @@ function setConnected(connected) {
     else {
         $("#conversation").hide();
     }
-    $("#greetings").html("");
+    $("#messages").html("");
+    $("#users").html("");
 }
 
 function connect() {
@@ -19,11 +20,11 @@ function connect() {
     stompClient.connect({}, function (frame) {
         setConnected(true);
         console.log('Connected: ' + frame);
-        stompClient.subscribe('/topic/messages', function (greeting) {
-            showMessage(JSON.parse(greeting.body).content);
+        stompClient.subscribe('/topic/messages', function (msg) {
+            showMessage(JSON.parse(msg.body).sender, JSON.parse(msg.body).content);
         });
-        stompClient.subscribe('/topic/users', function (greeting) {
-            showMessage(JSON.parse(greeting.body).content);
+        stompClient.subscribe('/topic/users', function (users) {
+            showUsers(JSON.parse(users.body).users);
         });
         stompClient.send("/app/login", {}, JSON.stringify({'name': $("#name").val()}));
     });
@@ -39,23 +40,41 @@ function disconnect() {
 }
 
 function sendMessage() {
+	if (document.getElementById("message").value.length==0){
+		return;
+	}
 	stompClient.send("/app/messages", {}, JSON.stringify({
 		'sender' : $("#name").val(),
 		'content' : $("#message").val()
 	}));
+	document.getElementById("message").value = "";
 }
 
-function showMessage(message) {
-	$("#greetings").append("<tr><td>" + message + "</td></tr>");
+function showMessage(sender, message) {
+	$("#messages").append("<span>" + sender + ": " + message + "</span><br/>");
+	$("#messages").animate({ scrollTop: $('#messages').prop("scrollHeight")}, 1000);
 }
+
+function showUsers(users) {
+	for(var i = 0; i < users.length; i++) {
+	    var obj = users[i];
+	    $("#messages").append("<span>" +obj.name + " <img src='" + obj.avatarPath + "' style='width:25px; height: 25px;'/></span><br/>");
+	}
+	
+	
+	$("#messages").append("<span>" + sender + ": " + message + "</span><br/>");
+	$("#messages").animate({ scrollTop: $('#messages').prop("scrollHeight")}, 1000);
+}
+
 
 $(function () {
-    $("form").on('submit', function (e) {
-        e.preventDefault();
-    });
     $( "#connect" ).click(function() { connect(); });
     $( "#disconnect" ).click(function() { disconnect(); });
     $( "#send" ).click(function() { sendMessage(); });
+    
+    $("form").on('submit', function (e) {
+        e.preventDefault();
+    });
 });
 
 

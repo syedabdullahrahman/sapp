@@ -2,15 +2,20 @@ package sapp.controller.chat;
 
 import java.util.ArrayList;
 
+import javax.servlet.ServletContext;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import sapp.model.User;
 import sapp.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.DefaultResourceLoader;
+import org.springframework.core.io.Resource;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
@@ -23,7 +28,12 @@ public class ChatController {
 	private SimpMessageSendingOperations messaging;
 	@Autowired 
 	private UserService userService;
-	private ArrayList<String> users;
+	
+	@Autowired
+    ServletContext context;
+
+	private ArrayList<ChatUser> users;
+	
 	
 	public ChatController(){
 		this.users=new ArrayList<>();
@@ -39,7 +49,20 @@ public class ChatController {
     public void login(InitMessage message) throws Exception {
 		messaging.convertAndSend("/topic/messages", 
 				new ChatMessage("SERVER",message.getName()+" joined!"));
-		users.add(message.getName());
+		
+		
+		User modelUser = userService.findByUsername(message.getName());
+		String path;
+		if( modelUser.getAvatarPath() ==  null || modelUser.getAvatarPath().isEmpty()){
+			path = "/images/profile/anonymous.png";
+		}else{
+			Resource picturePath = (new DefaultResourceLoader()).getResource("file:./" + modelUser.getAvatarPath());
+			/images/profile --> upload here thanks to the "get real path" <- change in upload properties the path	
+			path = context.getRealPath(picturePath.getURI().toString());??
+		}
+		
+		
+		users.add(new ChatUser(message.getName(),path));
 		messaging.convertAndSend("/topic/users",
 				new UserListMessage(users));
     }
