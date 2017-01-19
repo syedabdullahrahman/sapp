@@ -13,12 +13,21 @@
 </div>
 	<div layout:fragment="content">
 		<!-- CONTENT -->
+		<!-- no script warning -->
+		<div class="row">
+			<div class="col s12">
+				<h2 th:text="#{chat.title}" class="orange-text text-darken-3">Hello
+					on a page</h2>
+				<span th:text="#{chat.message}" class="flow-text">Welcome
+					message</span>
+			</div>
+		</div>
+		<h3 style="color: #ff0000"></h3>
+				<div id="errorMessage" class="card-panel red lighten-2">
+					<span class="card-title" th:text="#{chat.javascript.error}">no javascript</span>
+				</div>
 		
-		<noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
-    enabled. Please enable
-    Javascript and reload this page!</h2></noscript>
-
-
+		<!-- connect / disconnect -->
     <div class="row">
         <div class="col s12">
             <form class="form-inline">

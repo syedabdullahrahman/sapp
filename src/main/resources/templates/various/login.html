@@ -11,8 +11,8 @@
 			<div class="row">
 				<div id="errorMessage" class="card-panel red lighten-2"
 					th:if="${param.error}">
-					<span class="card-title" th:text="#{login.error}">Błędna
-						nazwa lub hasło</span>
+					<span class="card-title" th:text="#{login.error}">
+						incorrect login or password</span>
 				</div>
 				<form class="col s12" th:action="@{/login}" method="post">
 					<div class="row">

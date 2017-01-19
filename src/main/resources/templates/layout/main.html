@@ -8,6 +8,7 @@
 	content="width=device-width, initialscale=1, maximum-scale=1.0, user-scalable=no" />
 <link th:href="@{/webjars/materializecss/css/materialize.css}"
 	type="text/css" rel="stylesheet" media="screen,projection" />
+	<link th:href="@{/css/cookies.css}" type="text/css" rel="stylesheet" media="screen,projection" />
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet" />
 <title>Hello Spring</title>
@@ -87,9 +88,22 @@
 		</nav>
 	</div>
 	<!--=================================== /NAVI =================================-->
+	<!--=================================== COOKIES ===============================-->
+		<div id="cookie-warn">
+		<p>
+			<b><span th:text="#{cookies.warning}">WARNING!</span></b>
+			<span th:text="#{cookies.message}">Warning message</span>
+			<a href="javascript:void(0);" 
+				id="close-cookie-warn"
+				th:text="#{cookies.warning.close}">Close warning</a>
+		</p>
+	</div>
+	<!--=================================== /COOKIES ==============================-->
 	<!--=================================== CONTENT ===============================-->
+
 	<div class="container">
 		<div class="row">
+
 			<div class="col s12">
 				<section layout:fragment="content">
 					<p>page content</p>
@@ -137,13 +151,11 @@
 	<script th:src="@{/webjars/jquery/jquery.js}"></script>
 	<!-- MATERIALIZE JS -->
 	<script th:src="@{/webjars/materializecss/js/materialize.js}"></script>
+	<!-- COOKIES -->
+	<script th:src="@{/js/cookies.js}"></script>
 	<!-- ALL SPECIFIC SCRIPTS FROM CHILD VIEWS -->
 	<script type="text/javascript" layout:fragment="script">
-	</script>
-	<!-- DROPDOWN -->
-	<script type="text/javascript">
-		$(".dropdown-button").dropdown();
-	</script>
+		</script>
 	<!-- LOGOUT HIDDEN FORM -->
 	<!-- do href post logout -->
 	<form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
