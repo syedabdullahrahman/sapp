@@ -8,7 +8,16 @@ import org.springframework.core.io.Resource;
 public class UploadProperties {
 	private Resource picturesUploadPath;
 	private Resource anonymousPicture;
+	private Resource chatBotPicture;
 
+	public Resource getChatBotPicture() {
+		return chatBotPicture;
+	}
+	
+	public void setChatBotPicture(String chatBotPicture) {
+		this.chatBotPicture = new DefaultResourceLoader().getResource(chatBotPicture);
+	}
+	
 	public Resource getAnonymousPicture() {
 		return anonymousPicture;
 	}

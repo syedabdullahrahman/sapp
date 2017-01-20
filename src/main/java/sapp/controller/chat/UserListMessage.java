@@ -2,31 +2,33 @@ package sapp.controller.chat;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 public class UserListMessage implements Serializable{
 
 	private static final long serialVersionUID = 6141348167516372321L;
-	ArrayList<String> users;
+	SortedSet<String> users;
 
 	public UserListMessage() {
-		users = new ArrayList<>();
+		users = new TreeSet<>();
 	}
 
-	public UserListMessage(ArrayList<String> users) {
+	public UserListMessage(SortedSet<String> users) {
 		this.users = users;
 	}
 
 	/**
 	 * @return the users
 	 */
-	public ArrayList<String> getUsers() {
+	public SortedSet<String> getUsers() {
 		return users;
 	}
 
 	/**
 	 * @param users the users to set
 	 */
-	public void setUsers(ArrayList<String> users) {
+	public void setUsers(SortedSet<String> users) {
 		this.users = users;
 	}
 	

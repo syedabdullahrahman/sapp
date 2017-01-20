@@ -16,9 +16,6 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
 		registry.addEndpoint("/chat-websocket").withSockJS();
 	}
 
-	/* 
-	 * example
-	 */
 	@Override
 	public void configureMessageBroker(MessageBrokerRegistry config) {
 	     config.setApplicationDestinationPrefixes("/app");

@@ -12,13 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.MessageSource;
-import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -37,16 +34,15 @@ import sapp.service.UserService;
 @Controller
 public class UploadController {
 	private final Resource picturesDir;
-	private final Resource anonymousPicture;
 	private final MessageSource messageSource;
 	
 	@Autowired UserService userService;
+	@Autowired AvatarService avatarService;
 
     @Autowired
     public UploadController(UploadProperties uploadProperties,
                                    MessageSource messageSource) {
         picturesDir = uploadProperties.getPicturesUploadPath();
-        anonymousPicture = uploadProperties.getAnonymousPicture();
         this.messageSource = messageSource;
     }
 
@@ -59,51 +55,23 @@ public class UploadController {
 			return "redirect:/profile/edit";
 		}		
 		String path = copyFileToPictures(file);
-		System.out.println("after copy");
-		System.out.println("find  " + auth.getName());
 		User user = userService.findByUsername(auth.getName());
-		System.out.println("found: " + user);
-		
 		user.setAvatarPath(path);
 		userService.saveOrUpdate(user);
 		
 		return "redirect:/profile/show";
 	}
 
-	// get uploaded picture
 	@RequestMapping(value = "/useravatar")
 	public void getUploadedPicture(HttpServletResponse response) throws IOException {
-		Resource picturePath;
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		if (!(auth instanceof AnonymousAuthenticationToken)) {
-			User modelUser = userService.findByUsername(auth.getName());
-			if( modelUser.getAvatarPath() ==  null || modelUser.getAvatarPath().isEmpty()){
-				picturePath = anonymousPicture;
-			}else{
-				picturePath = (new DefaultResourceLoader()).getResource("file:./" + modelUser.getAvatarPath());
-			}
-		}else{
-			picturePath = anonymousPicture;
-		}
+		Resource picturePath = avatarService.getCurrentPicturePath();
         response.setHeader("Content-Type", URLConnection.guessContentTypeFromName(picturePath.getFilename()));
 		IOUtils.copy(picturePath.getInputStream(), response.getOutputStream());
 	}
 	
-	@Cacheable
-	private Resource getAvatarResourceByUsername(String username){
-		Resource picturePath;
-		User modelUser = userService.findByUsername(username);
-		if( modelUser.getAvatarPath() ==  null || modelUser.getAvatarPath().isEmpty()){
-			picturePath = anonymousPicture;
-		}else{
-			picturePath = (new DefaultResourceLoader()).getResource("file:./" + modelUser.getAvatarPath());
-		}
-		return picturePath;
-	}
-	
 	@RequestMapping(value="/useravatar/{username}")
 	public void getUserAvatar(HttpServletResponse response, @PathVariable String username) throws IOException {
-		Resource res = getAvatarResourceByUsername(username);
+		Resource res = avatarService.getAvatarResourceByUsername(username);
 		response.setHeader("Content-Type", URLConnection.guessContentTypeFromName(res.getFilename()));
 		IOUtils.copy(res.getInputStream(), response.getOutputStream());
 	}
