@@ -52,12 +52,13 @@
 		</div>
 		<!-- /CONNECT/DISCONNECT -->
 		<!-- CHAT WINDOW -->
-		<div class="row grey lighten-4">
-			<div class="col s10 blue lighten-4">
-				<div id="messages" style="overflow: auto; width=100%; height: 400px;" class="cyan"></div>
-			</div>
-			<div class="col s2 yellow lighten-3">
-				<h5>users title</h5>
+		<div class="row cyan lighten-1" style="border: 1px solid #BDBDBD;">
+				<div class="col s10 grey lighten-4" id="messages" style="overflow-y: scroll; overflow-x: hidden; height: 400px; padding-top: 10px;">
+					<p>...</p>
+				</div>
+			
+			<div class="col s2">
+				<h5>Online:</h5>
 			</div>
 			<div class="col s2">
 			<div id="users" style="overflow: auto; width: 100%; height:">
@@ -72,25 +73,7 @@
 						th:placeholdert="#{chat.your.message}" />
 					<button id="send" disabled="disabled" class="btn cyan darken-3"
 						type="submit">Send</button>
-						<input id="send" disabled="disabled" type="submit" value="send"></input>
-						<input id="send" type="text" value="send"
-						style="
-						/* label focus color */
-   .input-field input[type=text]:focus + label {
-     color: #000;
-}
-/* label underline focus color */
-   .input-field input[type=text]:focus {
-     border-bottom: 1px solid #000;
-     box-shadow: 0 1px 0 0 #000;
-   }
 						
-						"
-						
-						
-						
-						
-						></input>
 			</form>
 				</div>
 			</div>

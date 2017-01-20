@@ -29,8 +29,10 @@ public class ChatController {
 	@Autowired 
 	private UserService userService;
 	private SortedSet<String> users;
+	private String chatBotName;
 	
 	public ChatController(){
+		this.chatBotName = "ChatBot";
 		this.users=new TreeSet<>();
 		this.users.add("ChatBot");
 	}
@@ -46,14 +48,13 @@ public class ChatController {
 		users.add(principal.getName());
 		messaging.convertAndSend("/topic/users", new UserListMessage(users));
 		messaging.convertAndSend("/topic/messages", 
-				new ChatMessage("SERVER",principal.getName()+" joined!"));
+				new ChatMessage(chatBotName,principal.getName()+" joined!"));
 		messaging.convertAndSendToUser(principal.getName(), "/topic/priv",
-				new ChatMessage("SERVER","Be good " + principal.getName()+"!"));
+				new ChatMessage(chatBotName,"Be good " + principal.getName()+"!"));
 	}
 	@MessageMapping("/disconnect")
 	public void disconnect(Principal principal) throws Exception {
-		System.out.println("removing user: " + users.remove(principal.getName()));
-		System.out.println("bye bye " + principal.getName());
+		users.remove(principal.getName());
 	}
 	
 	@MessageMapping("/messages")

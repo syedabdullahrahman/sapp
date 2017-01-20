@@ -5,12 +5,11 @@ function setConnected(connected) {
 	$("#connect").prop("disabled", connected);
     $("#disconnect").prop("disabled", !connected);
     if (connected) {
-        $("#conversation").show();
+    	$("#messages").html("");
     }
     else {
-        $("#conversation").hide();
+    	$("#messages").html("<p>...</p>");
     }
-    $("#messages").html("");
     $("#users").html("");
 }
 
@@ -64,15 +63,23 @@ function sendMessage() {
 }
 
 function showMessage(sender, message) {
-	$("#messages").append("<span>" + sender + ": " + message + "</span><br/>");
-	$("#messages").animate({ scrollTop: $('#messages').prop("scrollHeight")}, 1000);
+	var date = new Date(Date.now()).toLocaleString();
+		$("#messages").append(
+				"<div class='row'  style='border-bottom: 1px solid #DDDDDD;'><div class='col s1'><img src='/useravatar/" + sender + "' style='width: 35px; height: 35px;'/></div><div class='col s11 orange-text text-darken-3'><b>" +
+				sender + "</b></div><div class='col s11 grey-text text-darken-0'>" + date + "</div><div class='col s12'>" +
+				message + "</div></div>"
+				);
+		$("#messages").animate({scrollTop : $('#messages').prop("scrollHeight")}, 500);
 }
 
 function showPrivMessage(sender, message) {
-	$("#messages").append("<span class='grey'>");
-	$("#messages").append("<span>" + sender + ": " + message + "</span><br/>");
-	$("#messages").animate({ scrollTop: $('#messages').prop("scrollHeight")}, 1000);
-	$("#messages").append("</span>");
+	var date = new Date(Date.now()).toLocaleString();
+	$("#messages").append(
+			"<div class='row'  style='border-bottom: 1px solid #DDDDDD;'><div class='col s1'><img src='/useravatar/" + sender + "' style='width: 35px; height: 35px;'/></div><div class='col s11 orange-text text-darken-3'><b>" +
+			sender + "</b></div><div class='col s11 grey-text text-darken-0'>" + date + "</div><div class='col s12'><b><i>@priv " +
+			message + "</i></b></div></div>"
+			);
+	$("#messages").animate({scrollTop : $('#messages').prop("scrollHeight")}, 500);
 }
 
 function showUsers(users) {
