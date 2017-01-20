@@ -55,6 +55,7 @@ public class ChatController {
 	@MessageMapping("/disconnect")
 	public void disconnect(Principal principal) throws Exception {
 		users.remove(principal.getName());
+		messaging.convertAndSend("/topic/users", new UserListMessage(users));
 	}
 	
 	@MessageMapping("/messages")

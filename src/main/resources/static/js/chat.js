@@ -83,6 +83,7 @@ function showPrivMessage(sender, message) {
 }
 
 function showUsers(users) {
+	$("#users").html("");
 	for(var i = 0; i < users.length; i++) {
 	    var user = users[i];
 	    $("#users").append("<span><img src='/useravatar/" + user + "' style='width:25px; height: 25px;'/> &nbsp&nbsp" + user + "</span><br/>");
