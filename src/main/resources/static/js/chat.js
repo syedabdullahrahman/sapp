@@ -38,7 +38,8 @@ function connect() {
         stompClient.subscribe('/topic/users', function (users) {
             showUsers(JSON.parse(users.body).users);
         });
-        stompClient.subscribe('/app/login', function (msg) {});
+        stompClient.send("/app/login", {}, "" );
+        
     });
    
 }
@@ -55,11 +56,12 @@ function sendMessage() {
 	if (document.getElementById("message").value.length==0){
 		return;
 	}
-	stompClient.send("/topic/messages", {}, JSON.stringify({
+	stompClient.send("/app/postmessage", {}, JSON.stringify({
 		'sender' : $("#name").val(),
 		'content' : $("#message").val()
 	}));
 	document.getElementById("message").value = "";
+	document.getElementById("message").focus();
 }
 
 function showMessage(sender, message) {
@@ -76,7 +78,7 @@ function showPrivMessage(sender, message) {
 	var date = new Date(Date.now()).toLocaleString();
 	$("#messages").append(
 			"<div class='row'  style='border-bottom: 1px solid #DDDDDD;'><div class='col s1'><img src='/useravatar/" + sender + "' style='width: 35px; height: 35px;'/></div><div class='col s11 orange-text text-darken-3'><b>" +
-			sender + "</b></div><div class='col s11 grey-text text-darken-0'>" + date + "</div><div class='col s12'><b><i>@priv " +
+			sender + "</b></div><div class='col s11 grey-text text-darken-0'>" + date + "</div><div class='col s12'><b><i>[priv] " +
 			message + "</i></b></div></div>"
 			);
 	$("#messages").animate({scrollTop : $('#messages').prop("scrollHeight")}, 500);
@@ -86,8 +88,13 @@ function showUsers(users) {
 	$("#users").html("");
 	for(var i = 0; i < users.length; i++) {
 	    var user = users[i];
-	    $("#users").append("<span><img src='/useravatar/" + user + "' style='width:25px; height: 25px;'/> &nbsp&nbsp" + user + "</span><br/>");
+	    $("#users").append("<a href='#!' class='black-text' onclick='makePriv(&apos;" + user + "&apos;)'><img src='/useravatar/" + user + "' style='width:25px; height: 25px;'/> &nbsp&nbsp" + user + "</a><br/>");
 	};
+}
+
+function makePriv(username){
+	document.getElementById("message").value = document.getElementById("message").value + "@" + username + " "
+	document.getElementById("message").focus();
 }
 
 $(function () {
