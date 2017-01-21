@@ -72,7 +72,9 @@
 					<input autocomplete="off" type="text" id="message"
 						th:placeholdert="#{chat.your.message}" />
 					<button id="send" disabled="disabled" class="btn cyan darken-3"
-						type="submit">Send</button>
+						type="submit">
+						<span th:text="#{chat.send}">Send</span><i class="mdi-content-send right"></i>
+						</button>
 						
 			</form>
 				</div>
