@@ -38,10 +38,18 @@ function connect() {
         stompClient.subscribe('/topic/users', function (users) {
             showUsers(JSON.parse(users.body).users);
         });
+        stompClient.subscribe('/user/topic/ping', function (msg) {
+        	pong();
+        });
         stompClient.send("/app/login", {}, "" );
+        pong();
         
     });
    
+}
+
+function pong() {
+	stompClient.send("/app/pong", {}, "" );
 }
 
 function disconnect() {

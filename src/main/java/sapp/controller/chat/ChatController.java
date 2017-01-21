@@ -16,7 +16,7 @@ import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.scheduling.annotation.Scheduled;
 import sapp.service.UserService;
 
 @Controller
@@ -30,6 +30,7 @@ public class ChatController {
 	private UserService userService;
 	@Autowired ChatBot chatBot;
 	private SortedSet<String> users;
+	private SortedSet<String> pongUsers;
 	private String chatBotName;
 	private List<String> matches;
 	private Matcher matcher;
@@ -38,9 +39,17 @@ public class ChatController {
 		this.matches = new ArrayList<>();
 		this.chatBotName = "ChatBot";
 		this.users=new TreeSet<>();
-		this.users.add("ChatBot");
+		this.pongUsers = new TreeSet<>();
+		this.users.add(this.chatBotName);
 	}
 	
+	/**
+	 * @return the users
+	 */
+	public SortedSet<String> getUsers() {
+		return users;
+	}
+
 	/**
 	 * show chat view
 	 * @param model
@@ -59,12 +68,21 @@ public class ChatController {
 	 */
 	@MessageMapping("/login")
 	public void login(Principal principal) throws Exception {
+		// add user
 		users.add(principal.getName());
+		// send user list
 		messaging.convertAndSend("/topic/users", new UserListMessage(users));
+		// send joined info
 		messaging.convertAndSend("/topic/messages", 
 				new ChatMessage(chatBotName,principal.getName()+" joined!"));
+		// priv welcome by bot
 		messaging.convertAndSendToUser(principal.getName(), "/topic/priv",
 				new ChatMessage(chatBotName,"Be good " + principal.getName()+"!"));
+	}
+	
+	
+	private void sendUsers(){
+		messaging.convertAndSend("/topic/users", new UserListMessage(users));
 	}
 	
 	/**
@@ -74,8 +92,10 @@ public class ChatController {
 	 */
 	@MessageMapping("/disconnect")
 	public void disconnect(Principal principal) throws Exception {
+		// remove from list
 		users.remove(principal.getName());
-		messaging.convertAndSend("/topic/users", new UserListMessage(users));
+		// send user list
+		sendUsers();
 	}
 	
 	/**
@@ -114,8 +134,38 @@ public class ChatController {
 			messaging.convertAndSend("/topic/messages", 
 					new ChatMessage(message.getSender(),Jsoup.parse(message.getContent()).text()));
 	
-		}				
+		}		
+		messaging.convertAndSendToUser("Admin", "/topic/ping","msg");
 	}
+	
+	@Scheduled(fixedDelay = 13000)
+	private void userPinger() throws InterruptedException{
+		// clear pong list
+		this.pongUsers.clear();
+		// ping all users != ChatBot
+		for(String s: this.users){
+			if(s.equals(this.chatBotName)){
+				this.pongUsers.add(this.chatBotName);
+			}
+			messaging.convertAndSendToUser(s, "/topic/ping","");
+		}
+		// wait for response (to gather in pongUsers)
+		Thread.sleep(2000);
+		// swap lists
+		this.users = this.pongUsers;
+		this.pongUsers = new TreeSet<>();
+		
+		// send users
+		sendUsers();
+
+	}
+	
+	@MessageMapping("/pong")
+	public void pong(Principal principal) throws Exception {
+		System.out.println("pong: " + principal.getName());
+		this.pongUsers.add(principal.getName());
+	}
+	
 		
 
 }
