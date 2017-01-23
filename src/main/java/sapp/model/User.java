@@ -17,7 +17,7 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User {
     private Long id;
     private String username;
