@@ -26,23 +26,17 @@ import sapp.service.CustomUserDetailsService;
 public class DataSourceConfig {
 	
 	@Profile("devPostgre")
-	@Bean
+	@Bean("dataSource")
 	public DataSource postgreDataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		System.out.println(System.getenv("JDBC_DATABASE_URL"));
-		System.out.println(System.getenv("JDBC_DATABASE_USERNAME"));
-		System.out.println(System.getenv("JDBC_DATABASE_PASSWORD"));
 		dataSource.setDriverClassName("org.postgresql.Driver");
 		dataSource.setUrl(System.getenv("JDBC_DATABASE_URL"));
 		dataSource.setUsername(System.getenv("JDBC_DATABASE_USERNAME"));
 		dataSource.setPassword(System.getenv("JDBC_DATABASE_PASSWORD"));
-		System.out.println(System.getenv("JDBC_DATABASE_URL"));
-		System.out.println(System.getenv("JDBC_DATABASE_USERNAME"));
-		System.out.println(System.getenv("JDBC_DATABASE_PASSWORD"));
 		return dataSource;
 	}
 	@Profile("devPostgre")
-	@Bean
+	@Bean("sessionFactory")
 	public SessionFactory postgreSessionFactory() {
 		DataSource dataSource = postgreDataSource();
 		Properties properties = new Properties();
