@@ -44,7 +44,7 @@ public class DataSourceConfig {
 	@Profile("devPostgre")
 	@Bean
 	public SessionFactory postgreSessionFactory() {
-		DataSource dataSource = dataSource();
+		DataSource dataSource = postgreDataSource();
 		Properties properties = new Properties();
 		properties.put("hibernate.show_sql", "true");
 		properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
