@@ -82,6 +82,13 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
+		<!-- POSTGRESQL -->
+		<dependency>
+    <groupId>postgresql</groupId>
+    <artifactId>postgresql</artifactId>
+    <version>9.1-901-1.jdbc4</version>
+</dependency>
+		<!-- CONFIGURATION PROCESSOR -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>

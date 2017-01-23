@@ -15,5 +15,4 @@ public class VariousPagesController {
 	public String underConstruction() {
 		return "various/construction";
 	}
-	
 }

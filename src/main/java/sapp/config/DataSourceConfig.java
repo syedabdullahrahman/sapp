@@ -25,7 +25,31 @@ import sapp.service.CustomUserDetailsService;
 @EnableTransactionManagement
 public class DataSourceConfig {
 	
-	@Profile("dev")
+	@Profile("devPostgre")
+	@Bean
+	public DataSource postgreDataSource() {
+		DriverManagerDataSource dataSource = new DriverManagerDataSource();
+		dataSource.setDriverClassName("org.postgresql.Driver");
+		dataSource.setUrl(System.getenv("JDBC_DATABASE_URL"));
+		dataSource.setUsername(System.getenv("JDBC_DATABASE_USERNAME"));
+		dataSource.setPassword(System.getenv("JDBC_DATABASE_PASSWORD"));
+		
+		return dataSource;
+	}
+	@Profile("devPostgre")
+	@Bean
+	public SessionFactory postgreSessionFactory() {
+		DataSource dataSource = dataSource();
+		Properties properties = new Properties();
+		properties.put("hibernate.show_sql", "true");
+		properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
+		properties.put("hibernate.hbm2ddl.auto", "create");
+		LocalSessionFactoryBuilder sessionBuilder = new LocalSessionFactoryBuilder(dataSource);	
+		sessionBuilder.addProperties(properties);
+		sessionBuilder.scanPackages("sapp.model");
+		return sessionBuilder.buildSessionFactory();
+	}
+	@Profile("devHome")
 	@Bean
 	  public DataSource dataSource() {
 	    DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -36,7 +60,7 @@ public class DataSourceConfig {
 
 	    return dataSource;
 	  }
-	@Profile("dev")
+	@Profile("devHome")
 	@Bean
 	public SessionFactory sessionFactory() {
 		DataSource dataSource = dataSource();
