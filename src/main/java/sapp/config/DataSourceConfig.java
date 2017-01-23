@@ -25,7 +25,7 @@ import sapp.service.CustomUserDetailsService;
 @EnableTransactionManagement
 public class DataSourceConfig {
 	
-	@Profile("devPostgre")
+	@Profile("prod")
 	@Bean("dataSource")
 	public DataSource postgreDataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -35,7 +35,7 @@ public class DataSourceConfig {
 		dataSource.setPassword(System.getenv("JDBC_DATABASE_PASSWORD"));
 		return dataSource;
 	}
-	@Profile("devPostgre")
+	@Profile("prod")
 	@Bean("sessionFactory")
 	public SessionFactory postgreSessionFactory() {
 		DataSource dataSource = postgreDataSource();
@@ -48,7 +48,7 @@ public class DataSourceConfig {
 		sessionBuilder.scanPackages("sapp.model");
 		return sessionBuilder.buildSessionFactory();
 	}
-	@Profile("devHome")
+	@Profile("devhome")
 	@Bean
 	  public DataSource dataSource() {
 	    DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -59,7 +59,7 @@ public class DataSourceConfig {
 
 	    return dataSource;
 	  }
-	@Profile("devHome")
+	@Profile("devhome")
 	@Bean
 	public SessionFactory sessionFactory() {
 		DataSource dataSource = dataSource();
@@ -72,7 +72,7 @@ public class DataSourceConfig {
 		sessionBuilder.scanPackages("sapp.model");
 		return sessionBuilder.buildSessionFactory();
 	}
-	@Profile("prod")
+	@Profile("devh2")
 	@Bean("dataSource")
 	public DataSource h2DataSource(){
 		return new EmbeddedDatabaseBuilder()
@@ -81,7 +81,7 @@ public class DataSourceConfig {
 				//.addScript("classpath:sql/init-data.sql")
 				.build();
 	}
-	@Profile("prod")
+	@Profile("devh2")
 	@Bean("sessionFactory")
 	public SessionFactory h2SessionFactory() {
 		DataSource dataSource = dataSource();
