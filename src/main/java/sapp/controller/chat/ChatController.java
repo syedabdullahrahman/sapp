@@ -125,9 +125,17 @@ public class ChatController {
 				}
 			 }
 			if (chatBotQuestion){
-				messaging.convertAndSendToUser(principal.getName(), "/topic/priv",
-						new ChatMessage(this.chatBotName,chatBot.askChatBot(message.getContent()))
-				);
+				Runnable task = new Runnable(){
+					  public void run(){
+					    try{
+					      Thread.sleep(3500) ;
+							messaging.convertAndSendToUser(principal.getName(), "/topic/priv",
+									new ChatMessage(chatBotName,chatBot.askChatBot(message.getContent()))
+							);
+					    } catch (Exception ex) { /* … */ }
+					  }
+					};
+					task.run();
 			}
 		}
 		else{
@@ -135,7 +143,6 @@ public class ChatController {
 					new ChatMessage(message.getSender(),Jsoup.parse(message.getContent()).text()));
 	
 		}		
-		messaging.convertAndSendToUser("Admin", "/topic/ping","msg");
 	}
 	
 	@Scheduled(fixedDelay = 13000)
@@ -162,7 +169,6 @@ public class ChatController {
 	
 	@MessageMapping("/pong")
 	public void pong(Principal principal) throws Exception {
-		System.out.println("pong: " + principal.getName());
 		this.pongUsers.add(principal.getName());
 	}
 	
