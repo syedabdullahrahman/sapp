@@ -29,11 +29,16 @@ public class DataSourceConfig {
 	@Bean
 	public DataSource postgreDataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
+		System.out.println(System.getenv("JDBC_DATABASE_URL"));
+		System.out.println(System.getenv("JDBC_DATABASE_USERNAME"));
+		System.out.println(System.getenv("JDBC_DATABASE_PASSWORD"));
 		dataSource.setDriverClassName("org.postgresql.Driver");
 		dataSource.setUrl(System.getenv("JDBC_DATABASE_URL"));
 		dataSource.setUsername(System.getenv("JDBC_DATABASE_USERNAME"));
 		dataSource.setPassword(System.getenv("JDBC_DATABASE_PASSWORD"));
-		
+		System.out.println(System.getenv("JDBC_DATABASE_URL"));
+		System.out.println(System.getenv("JDBC_DATABASE_USERNAME"));
+		System.out.println(System.getenv("JDBC_DATABASE_PASSWORD"));
 		return dataSource;
 	}
 	@Profile("devPostgre")
