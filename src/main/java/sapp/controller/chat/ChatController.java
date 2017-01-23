@@ -77,7 +77,7 @@ public class ChatController {
 				new ChatMessage(chatBotName,principal.getName()+" joined!"));
 		// priv welcome by bot
 		messaging.convertAndSendToUser(principal.getName(), "/topic/priv",
-				new ChatMessage(chatBotName,"Be good " + principal.getName()+"!"));
+				new ChatMessage(chatBotName,"Be good @" + principal.getName()+"!"));
 	}
 	
 	

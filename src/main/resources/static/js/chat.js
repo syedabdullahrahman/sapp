@@ -96,7 +96,7 @@ function showUsers(users) {
 	$("#users").html("");
 	for(var i = 0; i < users.length; i++) {
 	    var user = users[i];
-	    $("#users").append("<a href='#!' class='black-text' onclick='makePriv(&apos;" + user + "&apos;)'><img src='/useravatar/" + user + "' style='width:25px; height: 25px;' class='circle responsive-img'/> &nbsp&nbsp" + user + "</a><br/>");
+	    $("#users").append("<div style='width: 100%; padding: 3px; display: block; border-bottom: 1px solid #9ADADA;'><a href='#!' class='black-text' style='display: block;' onclick='makePriv(&apos;" + user + "&apos;)'><img src='/useravatar/" + user + "' style='width:25px; height: 25px;' class='circle responsive-img'/> &nbsp&nbsp" + user + "</a></div>");
 	};
 }
 
