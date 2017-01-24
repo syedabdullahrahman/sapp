@@ -1,7 +1,6 @@
 var stompClient = null;
 
 function setConnected(connected) {
-	$("#send").prop("disabled", !connected);
 	$("#connect").prop("disabled", connected);
     $("#disconnect").prop("disabled", !connected);
     if (connected) {
@@ -60,6 +59,14 @@ function disconnect() {
     setConnected(false);
 }
 
+
+$("#message").on('keyup', function (e) {
+    if (e.keyCode == 13) {
+        sendMessage();
+    }
+});
+
+
 function sendMessage() {
 	if (document.getElementById("message").value.length==0){
 		return;
@@ -108,7 +115,6 @@ function makePriv(username){
 $(function () {
     $( "#connect" ).click(function() { connect(); });
     $( "#disconnect" ).click(function() { disconnect(); });
-    $( "#send" ).click(function() { sendMessage(); });
     
     $("form").on('submit', function (e) {
         e.preventDefault();
@@ -116,5 +122,50 @@ $(function () {
 });
 
 
+$('#toggle_fullscreen').on('click', function(){
+
+	  element = $('#fullscreen').get(0);
+	  messages = $('#messages').get(0);
+	  if (
+	    document.fullscreenElement ||
+	    document.webkitFullscreenElement ||
+	    document.mozFullScreenElement ||
+	    document.msFullscreenElement
+	  ) {
+	    if (document.exitFullscreen) {
+	      document.exitFullscreen();
+	    } else if (document.mozCancelFullScreen) {
+	      document.mozCancelFullScreen();
+	    } else if (document.webkitExitFullscreen) {
+	      document.webkitExitFullscreen();
+	    } else if (document.msExitFullscreen) {
+	      document.msExitFullscreen();
+	    }
+	  } else {
+	    if (element.requestFullscreen) {
+	      element.requestFullscreen();
+	    } else if (element.mozRequestFullScreen) {
+	      element.mozRequestFullScreen();
+	    } else if (element.webkitRequestFullscreen) {
+	      element.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+	    } else if (element.msRequestFullscreen) {
+	      element.msRequestFullscreen();
+	    }
+	  }
+	});
+
+
+$(document).ready(function() {
+  $(window).on('resize', function(){
+
+	  if ((!document.mozFullScreen && !document.webkitIsFullScreen)) {
+		  document.getElementById( "messages" ).style.height = "51vh";
+		} else {
+			document.getElementById( "messages" ).style.height = "92vh";
+		}
+	  
+	  
+  });
+});
 
 	

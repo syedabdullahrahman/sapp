@@ -10,6 +10,8 @@
 		<script th:src="@{/webjars/sockjs-client/sockjs.min.js}"></script>
 		<script th:src="@{/webjars/stomp-websocket/stomp.min.js}"></script>
 		<script th:src="@{/js/chat.js}"></script>
+		<script th:src="@{/js/fullscreen.js}"></script>
+		
 	</div>
 	<div layout:fragment="content">
 		<!-- CONTENT -->
@@ -32,7 +34,7 @@
 			</div>
 		</noscript>
 		<!-- /NO SCRIPT WARNING -->
-		<!-- CONNECT/DISCONNECT -->
+		<!-- CONNECT/DISCONNECT/FULLSCREEN -->
 		<div class="row">
 			<div class="col s12">
 				<form class="form-inline">
@@ -47,6 +49,11 @@
 						<span th:text="#{chat.quit}"></span><i
 							class="mdi-action-exit-to-app right"></i>
 					</button>
+					<button id="toggle_fullscreen"
+						class="btn waves-effect waves-light cyan darken-3 right" type="submit">
+						<i
+							class="mdi-navigation-fullscreen"></i>
+					</button>
 				</form>
 			</div>
 		</div>
@@ -56,37 +63,32 @@
 		full screen?
 		http://stackoverflow.com/questions/7130397/how-do-i-make-a-div-full-screen
 		 -->
-		<div class="row cyan lighten-1" style="border: 1px solid #BDBDBD;">
-				<div class="col s10 grey lighten-4" id="messages" style="overflow-y: scroll; overflow-x: hidden; height: 400px; padding-top: 10px;">
+		 <div class="row" id="fullscreen" style="padding-left: 10px; padding-right: 10px; background-color: white;">		 
+		<div class="row cyan lighten-1" style="border: 1px solid #BDBDBD; ">
+				<div class="col s10 grey lighten-4" id="messages" style="overflow-y: scroll; overflow-x: hidden; padding-top: 10px; 
+				height: 51vh;">
 					<p>...</p>
 				</div>
-			
 			<div class="col s2">
 				<h5>Online</h5>
 			</div>
 			<div class="col s2">
-			<div id="users" style="overflow: auto; width: 100%; height:">
+			<div id="users" style="overflow: auto; width: 100%;">
 				
 			</div>
 			</div>
 			</div>
-			<div class="row">
-				<div class="col s12">
-				<form style="display:inline;">
-					<input autocomplete="off" type="text" id="message"
-						th:placeholdert="#{chat.your.message}" />
-					<button id="send" disabled="disabled" class="btn cyan darken-3"
-						type="submit">
-						<span th:text="#{chat.send}">Send</span><i class="mdi-content-send right"></i>
-						</button>
-						
-			</form>
-				</div>
+			<div class="row" style="margin-top: -25px;">
+				<form>
+					<div class="input-field col s12 grey-text text-darken-3">
+						<i class="material-icons prefix cyan-text text-darken-3">chat_bubble_outline</i>
+						<input autocomplete="off" type="text" id="message"
+							th:placeholder="#{chat.your.message}"
+							style="border-bottom: 1px solid #BDBDBD;" />
+					</div>
+				</form>
 			</div>
-			<div class="row red">
-			
-
-		</div>
+			</div>
 		<!-- CHAT WINDOW -->
 		<form>
 			<!-- <input type="hidden" id="name" th:value="${name}" /> -->
