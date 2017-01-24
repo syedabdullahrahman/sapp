@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import sapp.model.Role;
 import sapp.model.User;
+import sapp.repository.UserRepository;
 import sapp.service.RoleService;
 import sapp.service.UserService;
 
@@ -63,6 +64,11 @@ public class ProfileController {
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@Transactional
 	public String registerUser(@Valid RegisterForm registerForm, BindingResult bindingResult) {
+		
+		User modelUser = userService.findByUsername(registerForm.getUsername());
+		if(modelUser != null){
+			bindingResult.rejectValue("username", "error.user.already.exist", "ERROR");
+		}
 		if(!registerForm.getPassword().equals(registerForm.getRepeatPassword())){
 			bindingResult.rejectValue("repeatPassword", "password.repeat", "ERROR");
 		}
@@ -72,7 +78,7 @@ public class ProfileController {
 		
 		// user role
 		Role userRole = roleService.findByName("ROLE_USER");
-		User modelUser = new User();
+		modelUser = new User();
 		modelUser.setUsername(registerForm.getUsername());
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String hashedPassword = passwordEncoder.encode(registerForm.getPassword());
