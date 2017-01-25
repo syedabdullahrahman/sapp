@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -24,13 +25,14 @@ public class User {
     private String name;
     private String email;
     private String password;
-    private Set<Role> roles;
     private String avatarPath;
+    private Set<Role> roles;
+    private Set<BlogEntry> blogEntries;
 
     
     public User() {
-		super();
 		this.roles = new HashSet<>();
+		this.blogEntries = new HashSet<>();
 	}
 
 	@Id
@@ -39,7 +41,15 @@ public class User {
         return id;
     }
 
-    public void setId(Long id) {
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "author")
+    public Set<BlogEntry> getBlogEntries() {
+		return blogEntries;
+	}
+	public void setBlogEntries(Set<BlogEntry> blogEntries) {
+		this.blogEntries = blogEntries;
+	}
+
+	public void setId(Long id) {
         this.id = id;
     }
 
@@ -82,7 +92,7 @@ public class User {
 		this.email = email;
 	}
 
-    @ManyToMany(mappedBy = "users", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+    @ManyToMany(mappedBy = "users", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
     public Set<Role> getRoles() {
         return roles;
     }

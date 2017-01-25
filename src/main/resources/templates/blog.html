@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	layout:decorator="layout/main">
+<head lang="pl">
+</head>
+<body>
+	<div layout:fragment="content">
+		<!-- CONTENT -->
+				<div class="row">
+			<div class="col s12">
+				<h2 th:text="#{blog.title}" class="orange-text text-darken-3">Hello
+					on a page</h2>
+				<span th:text="#{blog.message}" class="flow-text">Welcome
+					message</span>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col s12 flow-text">
+				<div th:each="entry : ${entries}">
+					<span th:text="|#${entry.id}|">role name</span><br/>
+					<span th:text="|${entry.author.username} (${entry.author.name})|">role name</span><br/>
+					<span th:text="${entry.title}">role name</span><br/>
+					<span th:text="${entry.content}">role name</span><br/>
+					<span th:text="${entry.creationDateTime}">role name</span><br/>
+				</div>
+		</div>
+		</div>
+
+		<!-- /CONTENT -->
+	</div>
+</body>
+</html>

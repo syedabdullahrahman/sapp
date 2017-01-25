@@ -157,7 +157,6 @@ $('#toggle_fullscreen').on('click', function(){
 
 $(document).ready(function() {
   $(window).on('resize', function(){
-
 	  if ((!document.mozFullScreen && !document.webkitIsFullScreen)) {
 		  document.getElementById( "messages" ).style.height = "51vh";
 		} else {

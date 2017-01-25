@@ -38,8 +38,6 @@ public class ProfileController {
 			User modelUser;
 			org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User)auth.getPrincipal();
 			modelUser = userService.findByUsername(user.getUsername());
-			System.out.println("user: " + user);
-			System.out.println("modelUser: " + modelUser);
 			return modelUser;
 		}
 		return null;
