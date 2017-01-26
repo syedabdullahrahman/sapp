@@ -82,7 +82,7 @@ function sendMessage() {
 function showMessage(sender, message) {
 	var date = new Date(Date.now()).toLocaleString();
 		$("#messages").append(
-				"<div class='row'  style='border-bottom: 1px solid #DDDDDD;'><div class='col s1'><img src='/useravatar/" + sender + "' style='width: 35px; height: 35px;'  class='circle responsive-img'/></div><div class='col s11 orange-text text-darken-3'><b>" +
+				"<div class='row'  style='border-bottom: 1px solid #DDDDDD;'><div class='col s1'><img src='/useravatar/" + sender + "' style='width: 35px; height: 35px;'  class='circle'/></div><div class='col s11 orange-text text-darken-3'><b>" +
 				sender + "</b></div><div class='col s11 grey-text text-darken-0'>" + date + "</div><div class='col s12'>" +
 				message + "</div></div>"
 				);
@@ -92,7 +92,7 @@ function showMessage(sender, message) {
 function showPrivMessage(sender, message) {
 	var date = new Date(Date.now()).toLocaleString();
 	$("#messages").append(
-			"<div class='row'  style='border-bottom: 1px solid #DDDDDD;'><div class='col s1'><img src='/useravatar/" + sender + "' style='width: 35px; height: 35px;' class='circle responsive-img'/></div><div class='col s11 orange-text text-darken-3'><b>" +
+			"<div class='row'  style='border-bottom: 1px solid #DDDDDD;'><div class='col s1'><img src='/useravatar/" + sender + "' style='width: 35px; height: 35px;' class='circle'/></div><div class='col s11 orange-text text-darken-3'><b>" +
 			sender + "</b></div><div class='col s11 grey-text text-darken-0'>" + date + "</div><div class='col s12 cyan lighten-4'><b><i>" +
 			message + "</i></b></div></div>"
 			);
@@ -103,7 +103,7 @@ function showUsers(users) {
 	$("#users").html("");
 	for(var i = 0; i < users.length; i++) {
 	    var user = users[i];
-	    $("#users").append("<div style='width: 100%; padding: 3px; display: block; border-bottom: 1px solid #9ADADA;'><a href='#!' class='black-text' style='display: block;' onclick='makePriv(&apos;" + user + "&apos;)'><img src='/useravatar/" + user + "' style='width:25px; height: 25px;' class='circle responsive-img'/> &nbsp&nbsp" + user + "</a></div>");
+	    $("#users").append("<div style='width: 100%; padding: 3px; display: block; border-bottom: 1px solid #9ADADA;'><a href='#!' class='black-text' style='display: block;' onclick='makePriv(&apos;" + user + "&apos;)'><img src='/useravatar/" + user + "' style='width:25px; height: 25px;' class='circle'/> &nbsp&nbsp" + user + "</a></div>");
 	};
 }
 

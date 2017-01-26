@@ -1,7 +1,5 @@
 package sapp.controller.blog;
 
-import java.util.Date;
-
 import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
@@ -44,7 +42,7 @@ public class BlogController {
 		BlogEntry entry = new BlogEntry(); 
 		
 		entry.setTitle("I'm learning Spring :)");
-		entry.setContent("My first blog entry content! well.. I'll try to make it a bit longer to test the blog layout. I don't think it wolud look professional though... :P");
+		entry.setContent("My first blog entry content! well.. I'll try to make it a bit longer to test the blog layout. I don't think it wolud look professional though... :P My first blog entry content! well.. I'll try to make it a bit longer to test the blog layout. I don't think it wolud look professional though... :P My first blog entry content! well.. I'll try to make it a bit longer to test the blog layout. I don't think it wolud look professional though... :P My first blog entry content! well.. I'll try to make it a bit longer to test the blog layout. I don't think it wolud look professional though... :P My first blog entry content! well.. I'll try to make it a bit longer to test the blog layout. I don't think it wolud look professional though... :P My first blog entry content! well.. I'll try to make it a bit longer to test the blog layout. I don't think it wolud look professional though... :P My first blog entry content! well.. I'll try to make it a bit longer to test the blog layout. I don't think it wolud look professional though... :P My first blog entry content! well.. I'll try to make it a bit longer to test the blog layout. I don't think it wolud look professional though... :P");
 		entry.setCreationDateTime(new java.util.Date());
 		
 		admin.getBlogEntries().add(entry);

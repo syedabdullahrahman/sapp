@@ -14,6 +14,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Type;
+
 @Entity
 @Table(name = "blog_entries")
 public class BlogEntry {
@@ -79,6 +81,7 @@ public class BlogEntry {
 	 * CONTENT
 	 */
 	@Column(nullable=false)
+	@Type(type="text")
 	public String getContent() {
 		return content;
 	}
