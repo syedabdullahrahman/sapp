@@ -1,5 +1,7 @@
 package sapp.controller.blog;
 
+import java.util.Date;
+
 import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
@@ -16,6 +18,7 @@ import sapp.service.UserService;
 
 
 @Controller
+@RequestMapping("/blog")
 public class BlogController {
 	@SuppressWarnings("unused")
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
@@ -25,10 +28,10 @@ public class BlogController {
 	@Autowired
 	private BlogEntryService blogEntryService;
 	
-	@RequestMapping("/blog")
+	@RequestMapping("/main")
 	@Transactional
 	public String showBlog(Model model) {
-		model.addAttribute("users", userService.findAll()); 
+		//model.addAttribute("users", userService.findAll()); 
 		model.addAttribute("entries", blogEntryService.findAllDesc());
 		 
 		return "blog";
@@ -40,8 +43,8 @@ public class BlogController {
 		User admin = userService.findByUsername("Admin");
 		BlogEntry entry = new BlogEntry(); 
 		
-		entry.setTitle("Test entry");
-		entry.setContent("My first blog entry content!");
+		entry.setTitle("I'm learning Spring :)");
+		entry.setContent("My first blog entry content! well.. I'll try to make it a bit longer to test the blog layout. I don't think it wolud look professional though... :P");
 		entry.setCreationDateTime(new java.util.Date());
 		
 		admin.getBlogEntries().add(entry);

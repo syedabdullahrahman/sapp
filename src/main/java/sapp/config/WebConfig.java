@@ -1,8 +1,6 @@
 package sapp.config;
 
 
-import java.time.LocalDate;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
@@ -12,7 +10,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
-import sapp.config.date.LocalDateFormatter;
+import sapp.config.date.SimpleDateTimeFormatter;
+
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -21,10 +20,11 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class WebConfig extends WebMvcConfigurerAdapter {
 	
+
 	// ----------> date formatter <----------
 	@Override
 	public void addFormatters(FormatterRegistry registry) {
-		registry.addFormatterForFieldType(LocalDate.class, new LocalDateFormatter());
+		registry.addFormatter(new SimpleDateTimeFormatter());
 	}
 
 	// ----------> i18n <----------
