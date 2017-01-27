@@ -25,23 +25,26 @@
 		</div>
 		<!-- 
 		private long id; 
-		private Date creationDateTime;
-		private User author;
 		private String title;
     	private String content;
 		 -->
-		 <form th:action="@{/blog/create}" method="post"
+		 <form id="blogform" th:action="@{/blog/create}" method="post"
 				th:object="${blogForm}">
 				<div class="row">
 					<div class="input-field col s12">
-						<input th:field="${blogForm.title}" id="username"
+						<input th:field="${blogForm.title}" id="title" name="title"
 							type="text" th:errorclass="invalid" th:placeholder="#{blog.enter.title}" />
+						<textarea th:field="${blogForm.content}" id="content" name="content"></textarea>				
+						<input th:field="${blogForm.id}" id="id" type="hidden"/>
 					</div>
 					
 				</div>
 				</form>
+			<button class="btn waves-effect waves-light orange darken-3"
+							type="submit" name="update">
+							<span th:text="#{update}"></span><i class="mdi-content-send right"></i>
+						</button>
 			
-			<textarea>!!Easy (and free!) You should check out our premium features.</textarea>
 			
 			
 

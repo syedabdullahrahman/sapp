@@ -1,20 +1,22 @@
 package sapp.controller.blog;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import sapp.model.BlogEntry;
 import sapp.model.User;
 import sapp.service.BlogEntryService;
 import sapp.service.UserService;
-
 
 @Controller
 @RequestMapping("/blog")
@@ -43,11 +45,32 @@ public class BlogController {
 	}
 
 	@RequestMapping("/create")
-	public String cre(Model model){
-		model.addAttribute("blogForm", new BlogForm());
+	public String showCreate(Model model){
+		BlogForm form = new BlogForm();
+		form.setId(1);
+		form.setTitle("BLOG TITLE");
+		form.setContent("What a wonderful content");
+		model.addAttribute("blogForm", form);
 		return "blogedit";
 	}
 	
+	@RequestMapping(value = "/create", method = RequestMethod.POST)
+	@Transactional
+	public String createEntry(@Valid BlogForm registerForm, BindingResult bindingResult) {
+	
+		if (bindingResult.hasErrors()) {
+			return "/blog/create";
+		}
+		return "redirect:/blog/read/1";
+	}
+	//  todo edit
+	+ links
+	
+	/**
+	 * TEMP
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/add")
 	@Transactional
 	public String createTestEntry(Model model){
