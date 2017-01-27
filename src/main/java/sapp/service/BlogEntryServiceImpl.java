@@ -25,5 +25,15 @@ public class BlogEntryServiceImpl extends GenericServiceAdapter<BlogEntry, Long>
 	public List<BlogEntry> findAllDesc() {
 		return blogEntryRepository.findAllDesc();
 	}
+
+	@Override
+	public long countAll() {
+		return blogEntryRepository.countAll();
+	}
+
+	@Override
+	public List<BlogEntry> findPaginateDesc(int page, int quantityPerPage) {
+		return blogEntryRepository.findPaginateDesc(page, quantityPerPage);
+	}
     
 }
