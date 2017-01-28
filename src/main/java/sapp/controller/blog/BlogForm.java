@@ -1,9 +1,13 @@
 package sapp.controller.blog;
 
+import javax.validation.constraints.Size;
+
 public class BlogForm {
 
 	private long id; 
+	@Size(min = 2, max=25)
 	private String title;
+	@Size(min = 5)
 	private String content;
 
 	public String getTitle() {

@@ -6,6 +6,7 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -45,26 +46,36 @@ public class BlogController {
 	}
 
 	@RequestMapping("/create")
-	public String showCreate(Model model){
-		BlogForm form = new BlogForm();
-		form.setId(1);
-		form.setTitle("BLOG TITLE");
-		form.setContent("What a wonderful content");
-		model.addAttribute("blogForm", form);
+	public String showCreate( BlogForm blogForm){
 		return "blogedit";
 	}
 	
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
+	@Secured("ROLE_ADMIN")
 	@Transactional
-	public String createEntry(@Valid BlogForm registerForm, BindingResult bindingResult) {
-	
+	public String createEntry(@Valid BlogForm blogForm, BindingResult bindingResult) {
+		System.out.println("title: " + blogForm.getTitle() + " size: " + blogForm.getTitle().length() );
+		System.out.println("content: " + blogForm.getContent() + " size: " + blogForm.getContent().length() );
 		if (bindingResult.hasErrors()) {
-			return "/blog/create";
+			return "/blogedit";
 		}
+		
+		
+		User user = userService.findByUsername(userService.getPrincipalName());
+		BlogEntry entry = new BlogEntry(); 
+		
+		entry.setTitle(blogForm.getTitle());
+		entry.setContent(blogForm.getContent());
+		entry.setCreationDateTime(new java.util.Date());
+		
+		user.getBlogEntries().add(entry);
+		entry.setAuthor(user);
+
+		blogEntryService.save(entry);
+		
 		return "redirect:/blog/read/1";
 	}
-	//  todo edit
-	+ links
+	//  todo edit + links
 	
 	/**
 	 * TEMP
