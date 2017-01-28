@@ -26,7 +26,6 @@ public class BlogController {
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 
 	private static final int ENTRIES_PER_PAGE = 10;
-	
 	@Autowired
 	private UserService userService;
 	@Autowired
@@ -60,22 +59,16 @@ public class BlogController {
 			return "/blogedit";
 		}
 		
-		
 		User user = userService.findByUsername(userService.getPrincipalName());
 		BlogEntry entry = new BlogEntry(); 
-		
 		entry.setTitle(blogForm.getTitle());
 		entry.setContent(blogForm.getContent());
 		entry.setCreationDateTime(new java.util.Date());
-		
 		user.getBlogEntries().add(entry);
 		entry.setAuthor(user);
-
 		blogEntryService.save(entry);
-		
 		return "redirect:/blog/read/1";
 	}
-	//  todo edit + links
 	
 	/**
 	 * TEMP

@@ -16,10 +16,22 @@
 			<div class="col s12">
 				<h2 th:text="#{blog.title}" class="orange-text text-darken-3">Hello
 					on a page</h2>
+			</div>
+			<div class="col s12">					
 				<span th:text="#{blog.message}" class="flow-text">Welcome
 					message</span>
-					
 			</div>
+		</div>
+		<div class="row" sec:authorize="hasRole('ROLE_ADMIN')">
+			<form th:action="@{/blog/create}">
+				<button class="btn waves-effect waves-light orange darken-3 right"
+					type="submit" name="update">
+					<span th:text="#{blog.create}"></span><i
+						class="mdi-content-send right"></i>
+				</button>
+				<a th:href="@{/blog/add}" class="waves-effect waves-light"><span
+					th:text="fake">Blog</span></a>
+			</form>
 		</div>
 		<div class="row">
 			<div class="col s10 offset-s1" th:each="entry : ${entries}">

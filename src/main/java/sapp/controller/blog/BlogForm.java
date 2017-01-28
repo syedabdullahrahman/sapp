@@ -2,12 +2,14 @@ package sapp.controller.blog;
 
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class BlogForm {
 
 	private long id; 
-	@Size(min = 2, max=25)
+	@Size(min = 5, max=47)
 	private String title;
-	@Size(min = 5)
+	@NotEmpty
 	private String content;
 
 	public String getTitle() {
