@@ -49,24 +49,42 @@ public class BlogController {
 		return "blogedit";
 	}
 	
-	@RequestMapping(value = "/create", method = RequestMethod.POST)
+	@RequestMapping("/edit/{id}")
+	public String showEdit(Model model, BlogForm blogForm, @PathVariable long id){
+		BlogEntry entry = blogEntryService.findById(id);
+		blogForm.setId(entry.getId());
+		blogForm.setTitle(entry.getTitle());
+		blogForm.setContent(entry.getContent());
+		model.addAttribute("blogForm", blogForm);
+		return "blogedit";
+	}
+	
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	@Secured("ROLE_ADMIN")
 	@Transactional
-	public String createEntry(@Valid BlogForm blogForm, BindingResult bindingResult) {
-		System.out.println("title: " + blogForm.getTitle() + " size: " + blogForm.getTitle().length() );
-		System.out.println("content: " + blogForm.getContent() + " size: " + blogForm.getContent().length() );
+	public String saveOrUpdateEntry(@Valid BlogForm blogForm, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			return "/blogedit";
 		}
+		BlogEntry entry ;
+		if (blogForm.getId()==0){
+		// create
+			User user = userService.findByUsername(userService.getPrincipalName());
+			entry = new BlogEntry(); 
+			entry.setTitle(blogForm.getTitle());
+			entry.setContent(blogForm.getContent());
+			entry.setCreationDateTime(new java.util.Date());
+			user.getBlogEntries().add(entry);
+			entry.setAuthor(user);
+		}
+		else{
+			entry = blogEntryService.findById(blogForm.getId());
+			entry.setTitle(blogForm.getTitle());
+			entry.setContent(blogForm.getContent());
+		}
 		
-		User user = userService.findByUsername(userService.getPrincipalName());
-		BlogEntry entry = new BlogEntry(); 
-		entry.setTitle(blogForm.getTitle());
-		entry.setContent(blogForm.getContent());
-		entry.setCreationDateTime(new java.util.Date());
-		user.getBlogEntries().add(entry);
-		entry.setAuthor(user);
-		blogEntryService.save(entry);
+		blogEntryService.saveOrUpdate(entry);
+		
 		return "redirect:/blog/read/1";
 	}
 	

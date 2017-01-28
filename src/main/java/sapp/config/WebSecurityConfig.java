@@ -40,10 +40,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				"/login", 
 				"/signin/**", 
 				"/signup",
-				"/profile/create"
+				"/profile/create",
+				"/blog/read/**"
 				)
 		.permitAll()
-		.antMatchers("/admin").hasRole("ADMIN")
+		.antMatchers(
+				"/admin", 
+				"/blog/create/**", 
+				"blog/edit/**"
+				)
+		.hasRole("ADMIN")
 		.anyRequest().authenticated().and()
 		.csrf()
 		.and()

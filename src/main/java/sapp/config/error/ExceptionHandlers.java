@@ -14,6 +14,10 @@ public class ExceptionHandlers {
 
 	public static final String DEFAULT_ERROR_VIEW = "error";
 
+	@ExceptionHandler(value = org.springframework.security.access.AccessDeniedException.class)
+	public String accessDeniedHandler(HttpServletRequest req, Exception e) throws Exception {
+		return "various/noaccess";
+	}
 	@ExceptionHandler(value = Exception.class)
 	public ModelAndView defaultErrorHandler(HttpServletRequest req, Exception e) throws Exception {
 		// If the exception is annotated with @ResponseStatus rethrow it and let the framework handle it
