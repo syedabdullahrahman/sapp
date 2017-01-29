@@ -41,7 +41,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				"/signin/**", 
 				"/signup",
 				"/profile/create",
-				"/blog/read/**"
+				"/blog/read/**",
+				"/contact/**"
 				)
 		.permitAll()
 		.antMatchers(

@@ -64,7 +64,7 @@ public class BlogController {
 	@Transactional
 	public String saveOrUpdateEntry(@Valid BlogForm blogForm, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
-			return "/blogedit";
+			return "blogedit";
 		}
 		BlogEntry entry ;
 		if (blogForm.getId()==0){

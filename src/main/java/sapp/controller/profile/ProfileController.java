@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import sapp.model.Role;
 import sapp.model.User;
-import sapp.repository.UserRepository;
 import sapp.service.RoleService;
 import sapp.service.UserService;
 
@@ -103,7 +102,7 @@ public class ProfileController {
 		
 	
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
-	public String updateUser(@Valid ProfileForm profileForm,BindingResult bindingResult){
+	public String updateUser(@Valid ProfileForm profileForm, BindingResult bindingResult){
 		if(bindingResult.hasErrors()){
 			return "profileedit";
 		}

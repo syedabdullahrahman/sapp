@@ -16,7 +16,7 @@
 
 		<div class="row">
 			<div class="col s12">
-				<h2 th:text="#{blog.title}" class="orange-text text-darken-3">Hello
+				<h2 th:text="#{blogedit.title}" class="orange-text text-darken-3">Hello
 					on a page</h2>
 			</div>
 		</div>
@@ -32,8 +32,11 @@
 						<div th:errors="*{title}" class="red-text">error</div>
 						<input th:field="${blogForm.title}" id="title" name="title"
 							type="text" th:errorclass="invalid" th:placeholder="#{blog.enter.title}" />
-							
-						<div th:errors="*{content}" class="red-text">error</div>	
+							<label for="title" th:text="#{blog.entry.title}">title</label>
+					</div>
+					<div class="input-field col s12">
+					
+					<div th:errors="*{content}" class="red-text">error</div>	
 						<textarea th:field="${blogForm.content}" id="content" name="content"></textarea>
 									
 						<input th:field="${blogForm.id}" id="id" type="hidden"/>
@@ -42,7 +45,7 @@
 					<div class="row">
 					<div class="col s12">
 								<button class="btn waves-effect waves-light orange darken-3 right"
-							type="submit" name="update">
+							type="submit" name="save">
 							<span th:text="#{blog.save}"></span><i class="mdi-content-send right"></i>
 						</button>
 					</div>
