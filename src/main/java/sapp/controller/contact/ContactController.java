@@ -41,7 +41,11 @@ public class ContactController {
 				return "contact";
 			}
 			 
-			mailService.sendEmail("no-reply@sjava.herokuapp.com", "viruss.snk@gmail.com", contactForm.getName(), contactForm.getContent());
+			mailService.sendEmail(
+					"no-reply@sjava.herokuapp.com", 
+					"viruss.snk@gmail.com", 
+					"Spring-Java contact form E-Mail", 
+					contactForm.getName()+ ": " +contactForm.getContent()+ " (" + contactForm.getEmail()+")");
 		model.addAttribute("title",messageSource.getMessage("contact.sent", null, locale));
 		model.addAttribute("message",messageSource.getMessage("contact.thank.you", null, locale));
 		return "message";
