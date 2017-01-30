@@ -14,12 +14,18 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import sapp.service.MailService;
+
+
+
 @Controller
 public class ContactController {
 	@SuppressWarnings("unused")
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	MessageSource messageSource;
+	@Autowired
+	MailService mailService;
 	
 	@RequestMapping("/contact")
 	public String showBlog(Model model, HttpServletRequest request) {
@@ -34,7 +40,8 @@ public class ContactController {
 			if (bindingResult.hasErrors()) {
 				return "contact";
 			}
-			 send..... TODO
+			 
+			mailService.sendEmail("no-reply@sjava.herokuapp.com", "viruss.snk@gmail.com", contactForm.getName(), contactForm.getContent());
 		model.addAttribute("title",messageSource.getMessage("contact.sent", null, locale));
 		model.addAttribute("message",messageSource.getMessage("contact.thank.you", null, locale));
 		return "message";

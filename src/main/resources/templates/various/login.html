@@ -14,6 +14,10 @@
 					<span class="card-title" th:text="#{login.error}">
 						incorrect login or password</span>
 				</div>
+				<div id="testInfo" class="card-panel green lighten-2">
+					<span class="card-title">
+					[test user] login: user pass: user</span>
+				</div>
 				<form class="col s12" th:action="@{/login}" method="post">
 					<div class="row">
 						<div class="input-field col s12">
