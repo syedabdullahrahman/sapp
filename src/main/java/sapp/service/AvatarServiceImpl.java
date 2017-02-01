@@ -1,5 +1,7 @@
 package sapp.service;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.io.DefaultResourceLoader;
@@ -31,12 +33,7 @@ public class AvatarServiceImpl implements AvatarService {
     	Resource picturePath;
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
-			User modelUser = userService.findByUsername(auth.getName());
-			if( modelUser.getAvatarPath() ==  null || modelUser.getAvatarPath().isEmpty()){
-				picturePath = anonymousPicture;
-			}else{
-				picturePath = (new DefaultResourceLoader()).getResource("file:./" + modelUser.getAvatarPath());
-			}
+				return getAvatarResourceByUsername(auth.getName());
 		}else{
 			picturePath = anonymousPicture;
 		}
@@ -55,10 +52,16 @@ public class AvatarServiceImpl implements AvatarService {
 		if( modelUser.getAvatarPath() ==  null || modelUser.getAvatarPath().isEmpty()){
 			picturePath = anonymousPicture;
 		}else{
+			try{
 			picturePath = (new DefaultResourceLoader()).getResource("file:./" + modelUser.getAvatarPath());
+			picturePath.getInputStream().close();
+			} catch (IOException ex){
+				modelUser.setAvatarPath(null);
+				userService.update(modelUser);
+				picturePath = anonymousPicture;				
+			}
 		}
 		return picturePath;
 	}
-    
- 
+
 }
