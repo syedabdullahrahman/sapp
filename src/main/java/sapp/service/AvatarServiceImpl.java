@@ -1,4 +1,4 @@
-package sapp.controller.upload;
+package sapp.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -14,19 +14,20 @@ import sapp.model.User;
 import sapp.service.UserService;
 
 @Service
-public class AvatarService {
+public class AvatarServiceImpl implements AvatarService {
 	private final Resource anonymousPicture;
 	private final Resource chatBotPicture;
 	
 	@Autowired UserService userService;
 	
     @Autowired
-    public AvatarService(UploadProperties uploadProperties) {
+    public AvatarServiceImpl(UploadProperties uploadProperties) {
         anonymousPicture = uploadProperties.getAnonymousPicture();
         chatBotPicture = uploadProperties.getChatBotPicture();
     }
     
-    public Resource getCurrentPicturePath(){
+    @Override
+	public Resource getCurrentPicturePath(){
     	Resource picturePath;
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
@@ -43,6 +44,7 @@ public class AvatarService {
     	return picturePath;
     }
     
+	@Override
 	@Cacheable("avatar")
 	public Resource getAvatarResourceByUsername(String username){
 		if(username.equals("ChatBot")){

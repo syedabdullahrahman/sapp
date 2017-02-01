@@ -29,6 +29,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import sapp.config.UploadProperties;
 import sapp.model.User;
+import sapp.service.AvatarService;
 import sapp.service.UserService;
 
 @Controller
@@ -75,7 +76,6 @@ public class UploadController {
 		response.setHeader("Content-Type", URLConnection.guessContentTypeFromName(res.getFilename()));
 		IOUtils.copy(res.getInputStream(), response.getOutputStream());
 	}
-	
 
 	// ---------------- helpers
 	private String copyFileToPictures(MultipartFile file) throws IOException {
